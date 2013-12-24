@@ -58,7 +58,7 @@ class Node:
 	    return self.edges[label]
     def getFail(self):
 	'''zwraca wezel odpowiadajacy najdluzszemu wlasciwemu sufiksowi
-	   slowa, ktore do ktorego probowalismy znalexc dopasowanie'''
+	   slowa, ktore do ktorego probowalismy znalezc dopasowanie'''
 	return self.fail
     def setAccept(self, number):
 	'''ustalamy, ze ten wezel akceptuje slowo o indeksie number
