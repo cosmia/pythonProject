@@ -15,9 +15,10 @@ class Node:
     '''klasa opisująca wezel/stan w automacie/drzewie Trie'''
     def __init__(self):
 	'''konstruktor bezargumentowy
-	   accept, fail = None
+	   accept = set() - pusty zbior,
+	   fail = None
 	   edges = {}'''
-	self.accept = None
+	self.accept = set()
 	self.edges = {}
 	self.fail = None
     def labelCorrect(self, label):
@@ -38,8 +39,8 @@ class Node:
 	    lan += "argument must be a node"
 	    raise NodeException(lan)
     def getAccept(self):
-	'''zwraca indeks slowa, ktore akceptuje ten wezel,
-	   lub None, jesli ten wezel niczego nie akceptuje'''
+	'''zwraca zbior indeksow slow, ktore akceptuje ten wezel,
+	   zbior jest pusty, jesli ten wezel niczego nie akceptuje'''
 	return self.accept
     def getLabels(self):
 	'''zwraca liste etykiet dla krawedzi wychodzacych z tego wezla'''
@@ -63,7 +64,7 @@ class Node:
 	'''ustalamy, ze ten wezel akceptuje slowo o indeksie number'''
 	if not isinstance(number, (long, int)):
 	    raise NodeException("argument should be an integer or long")
-	self.accept = number
+	self.accept.add(number)
     def setAim(self, label, node):
 	'''ustalamy, ze z tego wezla bedzie wychodzic krawedz
 	   etykietowana label i bedzie ona prowadzic do node'''
