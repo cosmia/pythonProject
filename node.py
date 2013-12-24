@@ -2,9 +2,12 @@
 # -*- coding: utf-8 -*-
 
 class NodeException(Exception):
+    '''wyjatek dla klasy Node'''
     def __init__(self, value):
+	'''konstruktor bezargumentowy'''
 	self.napis = value
     def __str__(self):
+	'''podaj powod wyjatku'''
 	return repr(self.napis)
     __repr__ = __str__
 
