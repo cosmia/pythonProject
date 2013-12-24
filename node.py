@@ -61,18 +61,23 @@ class Node:
 	   slowa, ktore do ktorego probowalismy znalexc dopasowanie'''
 	return self.fail
     def setAccept(self, number):
-	'''ustalamy, ze ten wezel akceptuje slowo o indeksie number'''
+	'''ustalamy, ze ten wezel akceptuje slowo o indeksie number
+	   rzuca NodeException, jesli number nie jest calkowita liczba nieujemna'''
 	if not isinstance(number, (long, int)):
 	    raise NodeException("argument should be an integer or long")
+	if number < 0:
+	    raise NodeException("argument must be non-negative")
 	self.accept.add(number)
     def setAim(self, label, node):
 	'''ustalamy, ze z tego wezla bedzie wychodzic krawedz
-	   etykietowana label i bedzie ona prowadzic do node'''
+	   etykietowana label i bedzie ona prowadzic do node
+	   rzuca NodeException, jesli label niepoprawna lub node nie jest wezlem'''
 	self.labelCorrect(label)
 	self.nodeCorrect(node,2)
 	self.edges[label] = node
     def setFail(self, node):
 	'''ustalamy, ze najdluzszy sufiks slowa, do ktorego probowalismy
-	  dopsowac w tym wezle odpowiada wezlowi node'''
+	  dopsowac w tym wezle odpowiada wezlowi node
+	  rzuca wyjatkiem, jesli node nie jest wezlem'''
 	self.nodeCorrect(node)
 	self.fail = node
