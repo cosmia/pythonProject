@@ -29,14 +29,23 @@ class Node:
 	if len(label) != 1:
 	    raise NodeException("label must be exactly one character long")
     def nodeCorrect(self, node, n=1):
+	'''sprawdza, czy node jest obiektem klasy Node
+	   jesli nie, to rzuca NodeException
+	   n to numer argumentu, ktorym jest node w jakiejs funkcji
+	     sluzy uszczegolowieniu, ktory argument jest bledny
+	'''
 	if not isinstance(node, Node):
 	    lan = "the "
 	    if n != 1: lan += "second "
 	    lan += "argument must be a node"
 	    raise NodeException(lan)
     def getAccept(self):
+	'''zwraca indeks slowa, ktore akceptuje ten wezel,
+	   lub None, jesli ten wezel niczego nie akceptuje
+	'''
 	return self.accept
     def getLabels(self):
+	'''zwraca liste etykiet dla krawedzi wychodzacych z tego wezla'''
 	return edges.keys
     def getAim(self, label):
 	self.labelCorrect(label)
