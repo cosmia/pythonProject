@@ -26,6 +26,29 @@ class TestNode(unittest.TestCase):
 	self.assertFalse(7 in s)
 	self.assertRaises(NodeException, n.setAccept, 6.0)
 	self.assertRaises(NodeException, n.setAccept, -7)
+    def test_aim(self):
+	'''kod testujacy dzialanie metod getAim i setAim'''
+	n = Node()
+	self.assertRaises(NodeException, n.getAim, 7)
+	self.assertRaises(NodeException, n.getAim, "")
+	self.assertRaises(NodeException, n.getAim, "df")
+	#domyslnie kazdy wezel jest korzeniem jakiegos drzewa
+	#powinien dla kazdej 'litery' zwracac lacze na siebie,
+	#o ile nie ustanowiono inaczej
+	self.assertEqual(n.getAim("a"), n)
+	self.assertEqual(n.getAim("e"), n)
+	n2 = Node()
+	n.setAim("e", n2)
+	self.assertEqual(n.getAim("a"), n)
+	self.assertEqual(n.getAim("e"), n2)
+	#n2 nie jest korzeniem - dlatego ustawiam jego fail na
+	#inny wezel, np. n
+	n2.fail = n
+	self.assertEqual(n2.getAim("a"), None)
+	self.assertRaises(NodeException, n.setAim, 7, n2)
+	self.assertRaises(NodeException, n.setAim, "", n2)
+	self.assertRaises(NodeException, n.setAim, "df", n2)
+	self.assertRaises(NodeException, n.setAim, "a", "gfg")
     def tearDown(self):
 	pass
 
