@@ -15,6 +15,14 @@ class TestNode(unittest.TestCase):
 	self.assertEqual(n.accept, set())
 	self.assertEqual(n.fail, None)
 	self.assertEqual(n.edges, {})
+    def test_accept(self):
+	n = Node()
+	n.setAccept(4)
+	n.setAccept(8)
+	s = n.getAccept()
+	self.assertTrue(4 in s)
+	self.assertTrue(8 in s)
+	self.assertFalse(7 in s)
     def tearDown(self):
 	pass
 
