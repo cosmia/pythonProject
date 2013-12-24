@@ -49,6 +49,15 @@ class TestNode(unittest.TestCase):
 	self.assertRaises(NodeException, n.setAim, "", n2)
 	self.assertRaises(NodeException, n.setAim, "df", n2)
 	self.assertRaises(NodeException, n.setAim, "a", "gfg")
+    def test_fail(self):
+	'''kod testujacy dzialanie metod getFail i setFail'''
+	n1 = Node()
+	n2 = Node()
+	self.assertEqual(n1.getFail(), None)
+	self.assertEqual(n2.getFail(), None)
+	n2.setFail(n1)
+	self.assertEqual(n2.getFail(), n1)
+	self.assertRaises(NodeException, n1.setFail, "gfgf")
     def tearDown(self):
 	pass
 
