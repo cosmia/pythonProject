@@ -13,10 +13,17 @@ class NodeException(Exception):
 
 class Node:
     def __init__(self):
+	'''konstruktor bezargumentowy
+	   accept, fail = None
+	   edges = {}
+	'''
 	self.accept = None
 	self.edges = {}
 	self.fail = None
     def labelCorrect(self, label):
+	'''sprawdza, czy label jest poprawna etykieta krawedzi
+	   jesli nie, rzuca NodeException
+	'''
 	if not isinstance(label, str):
 	    raise NodeException("label must be a character")
 	if len(label) != 1:
