@@ -16,6 +16,7 @@ class TestNode(unittest.TestCase):
 	self.assertEqual(n.fail, None)
 	self.assertEqual(n.edges, {})
     def test_accept(self):
+	'''kod testujacy metody setAccept i getAccept'''
 	n = Node()
 	n.setAccept(4)
 	n.setAccept(8)
@@ -23,6 +24,8 @@ class TestNode(unittest.TestCase):
 	self.assertTrue(4 in s)
 	self.assertTrue(8 in s)
 	self.assertFalse(7 in s)
+	self.assertRaises(NodeException, n.setAccept, 6.0)
+	self.assertRaises(NodeException, n.setAccept, -7)
     def tearDown(self):
 	pass
 
