@@ -18,7 +18,18 @@ class TestAho(unittest.TestCase):
 	self.assertEqual(a.words, [])
     def test_tree(self):
 	'''sprawdzam dodawanie i wyszukiwanie slow w drzewie'''
-	pass
+	a = AhoCorasick()
+	self.assertFalse(a.lookUp("nie ma"))
+	self.assertFalse(a.lookUp("tak"))
+	self.assertFalse(a.lookUp("ta"))
+	a.addWord("tak")
+	self.assertFalse(a.lookUp("nie ma"))
+	self.assertTrue(a.lookUp("tak"))
+	self.assertFalse(a.lookUp("ta"))
+	a.addWord("ta")
+	self.assertFalse(a.lookUp("nie ma"))
+	self.assertTrue(a.lookUp("tak"))
+	self.assertTrue(a.lookUp("ta"))
     def tearDown(self):
 	pass
 
