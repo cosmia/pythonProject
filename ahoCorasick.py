@@ -31,16 +31,18 @@ class AhoCorasick:
 	i = 0
 	#idziemy dopoki mozemy po istniejacych wezlach
 	while i < dl:
+	    litera = word[i]
 	    labels = wezel.getLabels()
-	    if s[i] in labels:
-		wezel = wezel.getAim(s[i])
+	    if litera in labels:
+		wezel = wezel.getAim(litera)
 	    else:
 		break
 	    i += 1
 	#a teraz tworzymy nowe, jesli taka potrzeba
 	while i < dl:
-	    wezel.setAim(s[i], Node())
-	    wezel = wezel.getAim(s[i])
+	    litera = word[i]
+	    wezel.setAim(litera, Node())
+	    wezel = wezel.getAim(litera)
 	    i += 1
 	#jesli jeszcze nie dodalismy tego slowa
 	if wezel.getAccept() == set():
