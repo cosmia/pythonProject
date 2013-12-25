@@ -11,6 +11,7 @@ class TestAho(unittest.TestCase):
     def test_init(self):
 	'''sprawdzam dzialanie konstruktora'''
 	a = AhoCorasick()
+	#porownianie korzenia z domyslnym wezlem + czy lista slow pusta
 	self.assertEqual(a.n.getAccept(), set())
 	self.assertEqual(a.n.getFail(), None)
 	self.assertEqual(a.n.getLabels(), [])
