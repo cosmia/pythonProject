@@ -10,7 +10,11 @@ class TestAho(unittest.TestCase):
 	pass
     def test_init(self):
 	'''sprawdzam dzialanie konstruktora'''
-	pass
+	a = AhoCorasick()
+	self.assertEqual(a.n.getAccept(), set())
+	self.assertEqual(a.n.getFail(), None)
+	self.assertEqual(a.n.getLabels(), [])
+	self.assertEqual(a.words, [])
     def test_tree(self):
 	'''sprawdzam dodawanie i wyszukiwanie slow w drzewie'''
 	pass
