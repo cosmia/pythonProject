@@ -4,7 +4,7 @@
 class NodeException(Exception):
     '''wyjatek dla klasy Node'''
     def __init__(self, value):
-	'''konstruktor bezargumentowy'''
+	'''konstruktor, argumentem tresc przy rzucaniu wyjatku'''
 	self.napis = value
     def __str__(self):
 	'''podaj powod wyjatku'''
