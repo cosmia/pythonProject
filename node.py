@@ -44,7 +44,7 @@ class Node:
 	return self.accept
     def getLabels(self):
 	'''zwraca liste etykiet dla krawedzi wychodzacych z tego wezla'''
-	return edges.keys
+	return self.edges.keys
     def getAim(self, label):
 	'''zwraca wezel, do ktorego prowadzi krawedz z etykieta label
 	   jesli brak takiej krawedzi, zwraca None'''
