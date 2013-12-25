@@ -24,7 +24,7 @@ class AhoCorasick:
 	'''dodaje slowo word do automatu/drzewa
 	   rzuca AhoCorasickException, jesli word nie jest stringiem'''
 	if not isinstance(word, str):
-	    raise AhoCorasickException("argument nie jest stringiem")
+	    raise AhoCorasickException("argument is not a string")
 	dl = len(word)
 	if dl == 0: return #nie dodajemy pustego slowa
 	wezel = self.n
@@ -53,4 +53,19 @@ class AhoCorasick:
 	'''sprawdza, czy dane slowo wystepuje w drzewie
 	   zwraca True, jesli tak; False wpp
 	   rzuca AhoCorasickException, jesli word nie jest strigiem'''
-	pass
+	if not isinstance(word, str):
+	    raise AhoCorasickException("argument is not a string")
+	if word == "": return False
+	i = 0
+	dl = len(word)
+	wezel = self.n
+	while i < dl:
+	    litera = word[i]
+	    labels = wezel.getLabels()
+	    if litera not in labels:
+		return False
+	    wezel = wezel.getAim(litera)
+	    i += 1
+	if wezel.getAccept() != set():
+	    return True
+	return False
