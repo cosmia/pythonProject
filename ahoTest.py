@@ -30,6 +30,9 @@ class TestAho(unittest.TestCase):
 	self.assertFalse(a.lookUp("nie ma"))
 	self.assertTrue(a.lookUp("tak"))
 	self.assertTrue(a.lookUp("ta"))
+	#testowanie wyjatkow
+	self.assertRaises(AhoCorasickException, a.addWord, 7)
+	self.assertRaises(AhoCorasickException, a.lookUp, 7)
     def tearDown(self):
 	pass
 
