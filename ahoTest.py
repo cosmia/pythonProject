@@ -35,7 +35,33 @@ class TestAho(unittest.TestCase):
 	self.assertRaises(AhoCorasickException, a.lookUp, 7)
     def test_build(self):
 	'''kod testujacy metode AhoCorasick.build'''
-	pass
+	a = AhoCorasick()
+	a.addWord("sernik")
+	a.addWord("laser")
+	a.build()
+	r = a.n
+	l = r.getAim("l")
+	la = l.getAim("a")
+	las = la.getAim("s")
+	lase = las.getAim("e")
+	laser = lase.getAim("r")
+	s = r.getAim("s")
+	se = s.getAim("e")
+	ser = se.getAim("r")
+	sern = ser.getAim("n")
+	serni = sern.getAim("i")
+	sernik = serni.getAim("k")
+	self.assertEqual(l.getFail(), r)
+	self.assertEqual(la.getFail(), r)
+	self.assertEqual(las.getFail(), s)
+	self.assertEqual(lase.getFail(), se)
+	self.assertEqual(laser.getFail(), ser)
+	self.assertEqual(s.getFail(), r)
+	self.assertEqual(se.getFail(), r)
+	self.assertEqual(ser.getFail(), r)
+	self.assertEqual(sern.getFail(), r)
+	self.assertEqual(serni.getFail(), r)
+	self.assertEqual(sernik.getFail(), r)
     def tearDown(self):
 	pass
 
