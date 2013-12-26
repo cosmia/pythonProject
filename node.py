@@ -62,9 +62,18 @@ class Node:
 	return self.fail
     def setAccept(self, number):
 	'''ustalamy, ze ten wezel akceptuje slowo o indeksie number
-	   rzuca NodeException, jesli number nie jest calkowita liczba nieujemna'''
+	   rzuca NodeException, jesli number nie jest calkowita liczba nieujemna
+	   albo zbiorem calkowitych liczb nieujemnych'''
+	if isinstance(number, set):
+	    for i in number:
+		if not isinstance(i, (long, int)) or i < 0:
+		    mes = "argument should be a non-negative integer or long or a set of those"
+		    raise NodeException(mes)
+	    for i in number:
+		self.setAccept(i)
+	    return
 	if not isinstance(number, (long, int)):
-	    raise NodeException("argument should be an integer or long")
+	    raise NodeException("argument should be an integer or long or a set of those")
 	if number < 0:
 	    raise NodeException("argument must be non-negative")
 	self.accept.add(number)
