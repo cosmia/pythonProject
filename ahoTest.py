@@ -33,6 +33,9 @@ class TestAho(unittest.TestCase):
 	#testowanie wyjatkow
 	self.assertRaises(AhoCorasickException, a.addWord, 7)
 	self.assertRaises(AhoCorasickException, a.lookUp, 7)
+    def test_build(self):
+	'''kod testujacy metode AhoCorasick.build'''
+	pass
     def tearDown(self):
 	pass
 
