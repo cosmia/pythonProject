@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from node import *
+from Queue import *
 
 class AhoCorasickException(Exception):
     '''wyjatek dla klasy Node'''
@@ -43,7 +44,8 @@ class AhoCorasick:
 	    litera = word[i]
 	    wezel.setAim(litera, Node())
 	    wezel = wezel.getAim(litera)
-	    wezel.setFail(self.n) #na poczatku najdluzszy wlasciwy sufiks to slowo puste
+	    #wezel.setFail(self.n) #na poczatku najdluzszy wlasciwy sufiks to slowo puste
+	    #mozna to w sumie robic przy budowaniu automatu...
 	    i += 1
 	#jesli jeszcze nie dodalismy tego slowa
 	if wezel.getAccept() == set():
@@ -73,4 +75,18 @@ class AhoCorasick:
     def build(self):
 	'''konstruuje automat skonczony na podstawie drzewa, ktore
 	   powstaje podczas dodawania slow metoda addWord'''
-	pass
+	q = Queue()
+	for i in self.n.getLabels():
+	    s = self.n.getAim(i)
+	    s.setFail(self.n)
+	    q.put(s)
+	while not q.empty():
+	    r = q.get()
+	    for a in r.getLabels():
+		u = r.getAim(a)
+		q.put(u)
+		v = r.getFail()
+		while v.getAim(a) is None: #jesli stad nie ma tego przejscia
+		    v = v.getFail()        #to szukaj krotszego dopasowania
+		u.setFail(v.getAim(a))
+		u.setAccept(u.getFail().getAccept()) #dodaj nowe akceptowane slowa
