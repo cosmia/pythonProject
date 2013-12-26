@@ -43,6 +43,7 @@ class AhoCorasick:
 	    litera = word[i]
 	    wezel.setAim(litera, Node())
 	    wezel = wezel.getAim(litera)
+	    wezel.setFail(self.n) #na poczatku najdluzszy wlasciwy sufiks to slowo puste
 	    i += 1
 	#jesli jeszcze nie dodalismy tego slowa
 	if wezel.getAccept() == set():
