@@ -70,3 +70,7 @@ class AhoCorasick:
 	if wezel.getAccept() != set():
 	    return True
 	return False
+    def build(self):
+	'''konstruuje automat skonczony na podstawie drzewa, ktore
+	   powstaje podczas dodawania slow metoda addWord'''
+	pass
