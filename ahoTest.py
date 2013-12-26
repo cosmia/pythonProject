@@ -63,9 +63,32 @@ class TestAho(unittest.TestCase):
 	self.assertEqual(serni.getFail(), r)
 	self.assertEqual(sernik.getFail(), r)
     def test_build2(self):
-	'''kod testujacy metode AhoCorasick.build dla bardziej
-	   skomplikowanego automatu'''
-	pass
+	'''kod testujacy metode AhoCorasick.build dla bardziej skomplikowanego automatu'''
+	a = AhoCorasick()
+	a.addWord("he")
+	a.addWord("she")
+	a.addWord("his")
+	a.addWord("hers")
+	a.build()
+	r = a.n
+	h = r.getAim("h")
+	hi = h.getAim("i")
+	his = hi.getAim("s")
+	he = h.getAim("e")
+	her = he.getAim("r")
+	hers = her.getAim("s")
+	s = r.getAim("s")
+	sh = s.getAim("h")
+	she = sh.getAim("e")
+	self.assertEqual(s.getFail(), r)
+	self.assertEqual(sh.getFail(), h)
+	self.assertEqual(she.getFail(), he)
+	self.assertEqual(h.getFail(), r)
+	self.assertEqual(he.getFail(), r)
+	self.assertEqual(her.getFail(), r)
+	self.assertEqual(hers.getFail(), s)
+	self.assertEqual(hi.getFail(), r)
+	self.assertEqual(his.getFail(), s)
     def tearDown(self):
 	pass
 
