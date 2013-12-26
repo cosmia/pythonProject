@@ -61,7 +61,8 @@ class Node:
 	   slowa, ktore do ktorego probowalismy znalezc dopasowanie'''
 	return self.fail
     def setAccept(self, number):
-	'''ustalamy, ze ten wezel akceptuje slowo o indeksie number
+	'''ustalamy, ze ten wezel akceptuje slowo o indeksie number lub slowa o
+	   indeksach ze zbioru number
 	   rzuca NodeException, jesli number nie jest calkowita liczba nieujemna
 	   albo zbiorem calkowitych liczb nieujemnych'''
 	if isinstance(number, set):
