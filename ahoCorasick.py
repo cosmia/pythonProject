@@ -90,3 +90,7 @@ class AhoCorasick:
 		    v = v.getFail()        #to szukaj krotszego dopasowania
 		u.setFail(v.getAim(a))
 		u.setAccept(u.getFail().getAccept()) #dodaj nowe akceptowane slowa
+    def makeTree(self, wordList):
+	'''konstruuje drzewo i automat na podstawie listy slow wordList
+	   rzuca AhoCorasickException, jesli wordList nie jest lista slow'''
+	pass
