@@ -92,5 +92,12 @@ class AhoCorasick:
 		u.setAccept(u.getFail().getAccept()) #dodaj nowe akceptowane slowa
     def makeTree(self, wordList):
 	'''konstruuje drzewo i automat na podstawie listy slow wordList
-	   rzuca AhoCorasickException, jesli wordList nie jest lista slow'''
-	pass
+	   rzuca AhoCorasickException, jesli wordList nie jest lista stringow'''
+	if not isinstance(wordList, list):
+	    raise AhoCorasickException("argument is not a list")
+	for i in wordList:
+	    if not isinstance(i, str):
+		raise AhoCorasickException("element of the list is not a string")
+	for i in wordList:
+	    self.addWord(i)
+	self.build()
