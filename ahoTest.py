@@ -122,6 +122,13 @@ class TestAho(unittest.TestCase):
 	self.assertEqual(a.words[2], "his")
     def test_clear(self):
 	'''kod testujacy czyszczenie automatu'''
+	a = AhoCorasick()
+	a.makeTree(["laser","sernik"])
+	a.clear()
+	self.assertEqual(a.words, [])
+	self.assertEqual(a.n.getAccept(), set())
+	self.assertEqual(a.n.getFail(), None)
+	self.assertEqual(a.n.getLabels(), [])
     def tearDown(self):
 	pass
 
