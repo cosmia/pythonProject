@@ -107,6 +107,22 @@ class AhoCorasick:
 	self.words = []
 	self.n = Node()
     def search(self, tekst):
-	'''wyszukuje wzorce w zmiennej tekst
+	'''wyszukuje wzorce w zmiennej tekst, zwraca string z wiadomoscia o wynikach
 	   jesli tekst nie jest zmienna string, to rzuca AhoCorasickException'''
-	pass
+	if not isinstance(tekst, str):
+	    raise AhoCorasickException("argument is not a string")
+	node = a.n
+	message = ""
+	dl = len(tekst)
+	for i in range(dl):
+	    while not node.getAim(tekst[i]):
+		node = node.getFail()
+	    node = node.getAim(tekst[i])
+	    if node.getAccept() != set():
+		zbior = node.getAccept()
+		for j in zbior:
+		    message += "Found \""+a.words[j]+"\" in position "+str(i)+"\n"
+	if message == "":
+	    message = "Nothing found\n"
+	message = message[:len(message)-1]
+	return message
