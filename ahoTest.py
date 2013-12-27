@@ -129,6 +129,13 @@ class TestAho(unittest.TestCase):
 	self.assertEqual(a.n.getAccept(), set())
 	self.assertEqual(a.n.getFail(), None)
 	self.assertEqual(a.n.getLabels(), [])
+    def test_search(self):
+	'''test sprawdzajacy wyszukiwanie wzorcow w tekscie'''
+	a = AhoCorasick()
+	a.makeTree(["he","she","his","hers"])
+	res = a.search("ushers")
+	e = "Found \"he\" in position 3\nFound \"she\" in position 3\nFound \"hers\" in position 5"
+	self.assertEqual(res,e)
     def tearDown(self):
 	pass
 

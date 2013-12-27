@@ -111,7 +111,7 @@ class AhoCorasick:
 	   jesli tekst nie jest zmienna string, to rzuca AhoCorasickException'''
 	if not isinstance(tekst, str):
 	    raise AhoCorasickException("argument is not a string")
-	node = a.n
+	node = self.n
 	message = ""
 	dl = len(tekst)
 	for i in range(dl):
@@ -121,7 +121,7 @@ class AhoCorasick:
 	    if node.getAccept() != set():
 		zbior = node.getAccept()
 		for j in zbior:
-		    message += "Found \""+a.words[j]+"\" in position "+str(i)+"\n"
+		    message += "Found \""+self.words[j]+"\" in position "+str(i)+"\n"
 	if message == "":
 	    message = "Nothing found\n"
 	message = message[:len(message)-1]
