@@ -120,6 +120,8 @@ class TestAho(unittest.TestCase):
 	self.assertEqual(his.getFail(), s)
 	self.assertEqual(his.getAccept(), set([2]))
 	self.assertEqual(a.words[2], "his")
+    def test_clear(self):
+	'''kod testujacy czyszczenie automatu'''
     def tearDown(self):
 	pass
 
