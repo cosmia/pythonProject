@@ -101,3 +101,7 @@ class AhoCorasick:
 	for i in wordList:
 	    self.addWord(i)
 	self.build()
+    def clear(self):
+	'''czysci automat i drzewo'''
+	self.words = []
+	self.n = Node()
