@@ -106,13 +106,18 @@ class AhoCorasick:
 	'''czysci automat i drzewo'''
 	self.words = []
 	self.n = Node()
-    def search(self, tekst):
+    def search(self, tekst, returnSet=False):
 	'''wyszukuje wzorce w zmiennej tekst, zwraca string z wiadomoscia o wynikach
+	   domyslny argument returnSet mowi o formacie zwracanej wartosci
+	   jesli returnSet jest False, to zwracamy string z informacjami
+	   jesli returnSet jest True, to zwracamy zbior krotek o dlugosci dwa, krotka
+	      zawiera pozycje, na ktorej znalazla slowo, oraz indeks slowa
 	   jesli tekst nie jest zmienna string, to rzuca AhoCorasickException'''
 	if not isinstance(tekst, str):
 	    raise AhoCorasickException("argument is not a string")
 	node = self.n
-	message = ""
+	if not returnSet: message = ""
+	else: message = set()
 	dl = len(tekst)
 	for i in range(dl):
 	    while not node.getAim(tekst[i]):
@@ -121,8 +126,11 @@ class AhoCorasick:
 	    if node.getAccept() != set():
 		zbior = node.getAccept()
 		for j in zbior:
-		    message += "Found \""+self.words[j]+"\" in position "+str(i)+"\n"
-	if message == "":
+		    if returnSet:
+			message.add((i,j))
+		    else:
+			message += "Found \""+self.words[j]+"\" in position "+str(i)+"\n"
+	if not returnSet and message == "":
 	    message = "Nothing found\n"
 	message = message[:len(message)-1]
 	return message
