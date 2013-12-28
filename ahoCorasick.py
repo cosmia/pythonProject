@@ -132,5 +132,5 @@ class AhoCorasick:
 			message += "Found \""+self.words[j]+"\" in position "+str(i)+"\n"
 	if not returnSet and message == "":
 	    message = "Nothing found\n"
-	message = message[:len(message)-1]
+	if not returnSet: message = message[:len(message)-1]
 	return message
