@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from Tkinter import Tk, Frame, Text, BOTH, LEFT, RAISED
+from Tkinter import Tk, Frame, Text, BOTH, W, N, E, S
 from ttk import Style, Button
 
 
@@ -22,13 +22,15 @@ class Ramka(Frame):
 	self.style.theme_use("classic")
 	self.initUI()
     def initUI(self):
-	'''tworzy pole tekstowe i klawisze'''
-	tekst = Text(self,bg="white")
-	tekst.pack(fill=BOTH, expand=True)
+	'''zajmuje sie rozkladem poszczegolnych elementow'''
+	self.columnconfigure(2, weight=1)
+	self.rowconfigure(2, weight=1)
+	tekst = Text(self, bg="white")
+	tekst.grid(row=0, column=0, columnspan=3, rowspan=4, padx=4, sticky=E+W+N+S)
 	saveAsButton = Button(self, text="zapisz jako...")
-	saveAsButton.pack(side=LEFT)
+	saveAsButton.grid(row=4, column=0)
 	openButton = Button(self, text="otworz...")
-	openButton.pack(side=LEFT)
+	openButton.grid(row=4, column=1)
 
 def main():
     root = Tk() #glowne okno aplikacji
