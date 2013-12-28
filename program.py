@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from Tkinter import Tk, Frame, BOTH
-from ttk import Style
+from Tkinter import Tk, Frame, Text, BOTH, LEFT, RAISED
+from ttk import Style, Button
 
 
 class Ramka(Frame):
@@ -20,6 +20,15 @@ class Ramka(Frame):
 	#ustawiamy styl
 	self.style = Style()
 	self.style.theme_use("classic")
+	self.initUI()
+    def initUI(self):
+	'''tworzy pole tekstowe i klawisze'''
+	tekst = Text(self,bg="white")
+	tekst.pack(fill=BOTH, expand=True)
+	saveAsButton = Button(self, text="zapisz jako...")
+	saveAsButton.pack(side=LEFT)
+	openButton = Button(self, text="otworz...")
+	openButton.pack(side=LEFT)
 
 def main():
     root = Tk() #glowne okno aplikacji
