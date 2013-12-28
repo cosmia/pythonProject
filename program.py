@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from Tkinter import Tk, Frame, Text, BOTH, W, N, E, S
-from ttk import Style, Button
+from Tkinter import Tk, Frame, Text, BOTH, W, N, E, S, DISABLED
+from ttk import Style, Button, Label
 
 
 class Ramka(Frame):
@@ -24,13 +24,20 @@ class Ramka(Frame):
     def initUI(self):
 	'''zajmuje sie rozkladem poszczegolnych elementow'''
 	self.columnconfigure(2, weight=1)
-	self.rowconfigure(2, weight=1)
-	tekst = Text(self, bg="white")
-	tekst.grid(row=0, column=0, columnspan=3, rowspan=4, padx=4, sticky=E+W+N+S)
-	saveAsButton = Button(self, text="zapisz jako...")
-	saveAsButton.grid(row=4, column=0)
-	openButton = Button(self, text="otworz...")
-	openButton.grid(row=4, column=1)
+	self.rowconfigure(5, weight=1)
+	label0 = Label(self, text="tekst do przeszukania:") #pierwsza etykieta
+	label0.grid(row=0,column=0, padx=4)
+	tekst = Text(self, bg="white") #glowne pole tekstowe
+	tekst.grid(row=1, column=0, columnspan=3, rowspan=5, padx=4, sticky=E+W+N+S)
+	saveAsButton = Button(self, text="zapisz jako...") #klawisz zapisywania
+	saveAsButton.grid(row=6, column=0, sticky=W)
+	openButton = Button(self, text="otwórz...") #klawisz otwierania
+	openButton.grid(row=6, column=1, sticky=W)
+	label1 = Label(self, text="Aktualne slowa:") #etykieta z boku
+	label1.grid(column=3, row=0, padx=2, sticky=N+W)
+	pole = Text(self, bg="white", height=10, width=30) #pole ze slowami, wysokosc
+	pole.grid(column=3, row=1, padx=2)		   #w liczbie znakow
+	pole.config(state=DISABLED)
 
 def main():
     root = Tk() #glowne okno aplikacji
