@@ -136,6 +136,9 @@ class TestAho(unittest.TestCase):
 	res = a.search("ushers")
 	e = "Found \"he\" in position 3\nFound \"she\" in position 3\nFound \"hers\" in position 5"
 	self.assertEqual(res,e)
+	res = a.search("")
+	self.assertEqual(res, "Nothing found")
+	self.assertRaises(AhoCorasickException, a.search, 7)
     def tearDown(self):
 	pass
 
