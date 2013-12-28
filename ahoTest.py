@@ -138,6 +138,11 @@ class TestAho(unittest.TestCase):
 	self.assertEqual(res,e)
 	res = a.search("")
 	self.assertEqual(res, "Nothing found")
+	res = a.search("w tym tekscie nic nie znajdzie")
+	self.assertEqual(res, "Nothing found")
+	res = a.search("ushers", True)
+	#pierwsza czesc krotki - pozycja, druga - indeks slowa
+	self.assertEqual(res,set([(3,0),(3,1),(5,3)]))
 	self.assertRaises(AhoCorasickException, a.search, 7)
     def tearDown(self):
 	pass
