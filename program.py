@@ -35,9 +35,13 @@ class Ramka(Frame):
 	openButton.grid(row=6, column=1, sticky=W)
 	label1 = Label(self, text="Aktualne slowa:") #etykieta z boku
 	label1.grid(column=3, row=0, padx=2, sticky=N+W)
-	pole = Text(self, bg="white", height=10, width=30) #pole ze slowami, wysokosc
-	pole.grid(column=3, row=1, padx=2)		   #w liczbie znakow
+	pole = Text(self, bg="white", height=10, width=35) #pole ze slowami, wysokosc
+	pole.grid(column=3, row=1, padx=2, columnspan=2)		   #w liczbie znakow
 	pole.config(state=DISABLED)
+	clear = Button(self, text="wyczyść listę słów")
+	clear.grid(column=4, row=2, sticky=W)
+	search = Button(self, text="wyszukaj")
+	search.grid(column=3, row=2, sticky=W)
 
 def main():
     root = Tk() #glowne okno aplikacji
