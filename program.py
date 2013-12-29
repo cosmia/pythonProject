@@ -41,7 +41,7 @@ class Ramka(Frame):
 	self.openButton = Button(self, text="otwórz...") #klawisz otwierania
 	self.openButton.grid(row=7, column=1, sticky=W)
     def drawList(self):
-	'''rysuje atykiete, liste slow do wyszukania oraz klawisz wyszukania i czyszczenia listy'''
+	'''rysuje etykiete, liste slow do wyszukania oraz klawisz wyszukania i czyszczenia listy'''
 	self.label1 = Label(self, text="Aktualne slowa:") #etykieta z boku
 	self.label1.grid(column=4, row=0, padx=2, sticky=N+W)
 	self.pole = ScrolledText(self, bg="white", height=10, width=35) 
