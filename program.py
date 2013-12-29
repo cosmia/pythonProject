@@ -25,7 +25,7 @@ class Ramka(Frame):
 	self.initUI()
     def initUI(self):
 	'''zajmuje sie rozkladem poszczegolnych elementow'''
-	self.columnconfigure(2, weight=1)
+	self.columnconfigure(3, weight=1)
 	self.rowconfigure(6, weight=1)
 	self.drawMain()
 	self.drawList()
@@ -35,11 +35,13 @@ class Ramka(Frame):
 	self.label0 = Label(self, text="Tekst do przeszukania:") #pierwsza etykieta
 	self.label0.grid(row=0,column=0, padx=4)
 	self.tekst = ScrolledText(self, bg="white") #glowne pole tekstowe
-	self.tekst.grid(row=1, column=0, columnspan=3, rowspan=6, padx=4, sticky=E+W+N+S)
+	self.tekst.grid(row=1, column=0, columnspan=4, rowspan=6, padx=4, sticky=E+W+N+S)
 	self.saveAsButton = Button(self, text="zapisz jako...") #klawisz zapisywania
 	self.saveAsButton.grid(row=7, column=0, sticky=W)
 	self.openButton = Button(self, text="otwórz...") #klawisz otwierania
 	self.openButton.grid(row=7, column=1, sticky=W)
+	self.clearText = Button(self, text="wyczysc tekst")
+	self.clearText.grid(row=7, column=2, sticky=W)
     def drawList(self):
 	'''rysuje etykiete, liste slow do wyszukania oraz klawisz wyszukania i czyszczenia listy'''
 	self.label1 = Label(self, text="Aktualne slowa:") #etykieta z boku
