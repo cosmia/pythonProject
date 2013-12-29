@@ -4,8 +4,7 @@
 from Tkinter import Tk, Frame, Text, BOTH, W, N, E, S, DISABLED, NORMAL
 from ttk import Style, Button, Label, Entry, Scrollbar
 from ScrolledText import ScrolledText
-from Tkconstants import END
-
+from Tkconstants import END, FIRST
 
 class Ramka(Frame):
     def __init__(self, parent):
@@ -50,8 +49,9 @@ class Ramka(Frame):
 	self.pole.grid(column=4, row=1, padx=2, columnspan=2)
 	self.pole.config(state=DISABLED)
 	#self.pole.insert(END,"sdfdfsdfsdfg dfgfdgfd fgsdg")
-	self.clear = Button(self, text="wyczyść listę słów")
+	self.clear = Button(self, text="wyczyść listę słów", command=self.clearList)
 	self.clear.grid(column=5, row=2, sticky=W)
+	self.clear.bind('<Return>', self.clearList)
 	self.search = Button(self, text="wyszukaj")
 	self.search.grid(column=4, row=2, sticky=W)
     def drawInput(self):
@@ -63,6 +63,7 @@ class Ramka(Frame):
 	self.wejscie.grid(column=4, row=4, padx=5, columnspan=3, sticky=W)
 	self.add = Button(self, text="dodaj", command=self.addWord)
 	self.add.grid(column=4, row=5, padx=2, sticky=W)
+	self.add.bind('<Return>', self.addWord)
     def addWord(self, event=None):
 	'''metoda wywolywana po kliknieciu klawisza <dodaj>'''
 	wartosc = self.wejscie.get()
@@ -73,6 +74,13 @@ class Ramka(Frame):
 	    self.pole.config(state=DISABLED)
 	    self.listaSlow.append(wartosc)
 	self.wejscie.delete(0, END)
+    def clearList(self, event=None):
+	'''metoda czyszczaca liste slow'''
+	if self.listaSlow != []:
+	    self.pole.config(state=NORMAL)
+	    self.pole.delete(1.0, END)
+	    self.pole.config(state=DISABLED)
+	    self.listaSlow = []
 
 def main():
     root = Tk() #glowne okno aplikacji
