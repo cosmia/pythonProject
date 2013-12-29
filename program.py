@@ -1,14 +1,16 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from Tkinter import Tk, Frame, Text, BOTH, W, N, E, S, DISABLED
+from Tkinter import Tk, Frame, Text, BOTH, W, N, E, S, DISABLED, NORMAL
 from ttk import Style, Button, Label, Entry, Scrollbar
 from ScrolledText import ScrolledText
+from Tkconstants import END
 
 
 class Ramka(Frame):
     def __init__(self, parent):
 	'''tworzy obiekt Example dziedziczacy po Frame, rodzicem ma byc parent'''
+	self.listaSlow = [] #lista slow do wyszukania
 	#ramka znajduje sie w oknie...
 	#wywolanie konstruktora rodzica - rodzicem jest parent
 	Frame.__init__(self, parent)
@@ -47,6 +49,7 @@ class Ramka(Frame):
 	#pole ze slowami, wysokosc w liczbie znakow
 	self.pole.grid(column=4, row=1, padx=2, columnspan=2)
 	self.pole.config(state=DISABLED)
+	#self.pole.insert(END,"sdfdfsdfsdfg dfgfdgfd fgsdg")
 	self.clear = Button(self, text="wyczyść listę słów")
 	self.clear.grid(column=5, row=2, sticky=W)
 	self.search = Button(self, text="wyszukaj")
@@ -56,9 +59,20 @@ class Ramka(Frame):
 	self.label2 = Label(self, text="Słowo:")
 	self.label2.grid(column=4, row=3, pady=5, padx=2, sticky=W)
 	self.wejscie = Entry(self, width=32)
+	self.wejscie.bind('<Return>', self.addWord)
 	self.wejscie.grid(column=4, row=4, padx=5, columnspan=3, sticky=W)
-	self.add = Button(self, text="dodaj")
+	self.add = Button(self, text="dodaj", command=self.addWord)
 	self.add.grid(column=4, row=5, padx=2, sticky=W)
+    def addWord(self, event=None):
+	'''metoda wywolywana po kliknieciu klawisza <dodaj>'''
+	wartosc = self.wejscie.get()
+	if wartosc != "" and wartosc not in self.listaSlow:
+	    improved = wartosc +", "
+	    self.pole.config(state=NORMAL)
+	    self.pole.insert(END, improved)
+	    self.pole.config(state=DISABLED)
+	    self.listaSlow.append(wartosc)
+	self.wejscie.delete(0, END)
 
 def main():
     root = Tk() #glowne okno aplikacji
