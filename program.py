@@ -68,8 +68,15 @@ class Ramka(Frame):
 	'''metoda wywolywana po kliknieciu klawisza <dodaj>'''
 	wartosc = self.wejscie.get()
 	if wartosc != "" and wartosc not in self.listaSlow:
+	    maxLen = self.pole["width"]
 	    improved = wartosc +", "
 	    self.pole.config(state=NORMAL)
+	    lenNow = len(self.pole.get(1.0, END))-1
+	    linesBefore = lenNow/maxLen
+	    linesAfter = (lenNow + len(improved))/maxLen
+	    if linesAfter > linesBefore and len(improved) <= maxLen:
+		for i in range(maxLen - lenNow%maxLen):
+		    self.pole.insert(END, " ")
 	    self.pole.insert(END, improved)
 	    self.pole.config(state=DISABLED)
 	    self.listaSlow.append(wartosc)
