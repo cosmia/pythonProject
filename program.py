@@ -33,7 +33,7 @@ class Ramka(Frame):
     def drawMain(self):
 	'''rysuje glowne pole tekstowe, etykiete tego pola, klawisze zapisz i otworz'''
 	self.label0 = Label(self, text="Tekst do przeszukania:") #pierwsza etykieta
-	self.label0.grid(row=0,column=0, padx=4, columnspan=2)
+	self.label0.grid(row=0,column=0, padx=4, columnspan=2, sticky=W)
 	self.tekst = ScrolledText(self, bg="white") #glowne pole tekstowe
 	self.tekst.grid(row=1, column=0, columnspan=4, rowspan=6, padx=4, sticky=E+W+N+S)
 	self.saveAsButton = Button(self, text="zapisz jako...") #klawisz zapisywania
