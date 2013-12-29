@@ -33,14 +33,14 @@ class Ramka(Frame):
     def drawMain(self):
 	'''rysuje glowne pole tekstowe, etykiete tego pola, klawisze zapisz i otworz'''
 	self.label0 = Label(self, text="Tekst do przeszukania:") #pierwsza etykieta
-	self.label0.grid(row=0,column=0, padx=4)
+	self.label0.grid(row=0,column=0, padx=4, columnspan=2)
 	self.tekst = ScrolledText(self, bg="white") #glowne pole tekstowe
 	self.tekst.grid(row=1, column=0, columnspan=4, rowspan=6, padx=4, sticky=E+W+N+S)
 	self.saveAsButton = Button(self, text="zapisz jako...") #klawisz zapisywania
 	self.saveAsButton.grid(row=7, column=0, sticky=W)
 	self.openButton = Button(self, text="otwórz...") #klawisz otwierania
 	self.openButton.grid(row=7, column=1, sticky=W)
-	self.clearText = Button(self, text="wyczysc tekst")
+	self.clearText = Button(self, text="wyczyść tekst")
 	self.clearText.grid(row=7, column=2, sticky=W)
     def drawList(self):
 	'''rysuje etykiete, liste slow do wyszukania oraz klawisz wyszukania i czyszczenia listy'''
@@ -93,7 +93,7 @@ class Ramka(Frame):
 
 def main():
     root = Tk() #glowne okno aplikacji
-    root.geometry("600x400+100+100")#wymiary=600x400, pozycja = (100,100)
+    root.geometry("650x400+100+100")#wymiary=600x400, pozycja = (100,100)
     app = Ramka(root)
     root.mainloop()
 
