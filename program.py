@@ -26,30 +26,39 @@ class Ramka(Frame):
 	'''zajmuje sie rozkladem poszczegolnych elementow'''
 	self.columnconfigure(2, weight=1)
 	self.rowconfigure(6, weight=1)
-	label0 = Label(self, text="Tekst do przeszukania:") #pierwsza etykieta
-	label0.grid(row=0,column=0, padx=4)
-	tekst = ScrolledText(self, bg="white") #glowne pole tekstowe
-	tekst.grid(row=1, column=0, columnspan=3, rowspan=6, padx=4, sticky=E+W+N+S)
-	saveAsButton = Button(self, text="zapisz jako...") #klawisz zapisywania
-	saveAsButton.grid(row=7, column=0, sticky=W)
-	openButton = Button(self, text="otwórz...") #klawisz otwierania
-	openButton.grid(row=7, column=1, sticky=W)
-	label1 = Label(self, text="Aktualne slowa:") #etykieta z boku
-	label1.grid(column=4, row=0, padx=2, sticky=N+W)
-	pole = ScrolledText(self, bg="white", height=10, width=35) 
+	self.drawMain()
+	self.drawList()
+	self.drawInput()
+    def drawMain(self):
+	'''rysuje glowne pole tekstowe, etykiete tego pola, klawisze zapisz i otworz'''
+	self.label0 = Label(self, text="Tekst do przeszukania:") #pierwsza etykieta
+	self.label0.grid(row=0,column=0, padx=4)
+	self.tekst = ScrolledText(self, bg="white") #glowne pole tekstowe
+	self.tekst.grid(row=1, column=0, columnspan=3, rowspan=6, padx=4, sticky=E+W+N+S)
+	self.saveAsButton = Button(self, text="zapisz jako...") #klawisz zapisywania
+	self.saveAsButton.grid(row=7, column=0, sticky=W)
+	self.openButton = Button(self, text="otwórz...") #klawisz otwierania
+	self.openButton.grid(row=7, column=1, sticky=W)
+    def drawList(self):
+	'''rysuje atykiete, liste slow do wyszukania oraz klawisz wyszukania i czyszczenia listy'''
+	self.label1 = Label(self, text="Aktualne slowa:") #etykieta z boku
+	self.label1.grid(column=4, row=0, padx=2, sticky=N+W)
+	self.pole = ScrolledText(self, bg="white", height=10, width=35) 
 	#pole ze slowami, wysokosc w liczbie znakow
-	pole.grid(column=4, row=1, padx=2, columnspan=2)
-	pole.config(state=DISABLED)
-	clear = Button(self, text="wyczyść listę słów")
-	clear.grid(column=5, row=2, sticky=W)
-	search = Button(self, text="wyszukaj")
-	search.grid(column=4, row=2, sticky=W)
-	label2 = Label(self, text="Słowo:")
-	label2.grid(column=4, row=3, pady=5, padx=2, sticky=W)
-	wejscie = Entry(self, width=32)
-	wejscie.grid(column=4, row=4, padx=5, columnspan=3, sticky=W)
-	add = Button(self, text="dodaj")
-	add.grid(column=4, row=5, padx=2, sticky=W)
+	self.pole.grid(column=4, row=1, padx=2, columnspan=2)
+	self.pole.config(state=DISABLED)
+	self.clear = Button(self, text="wyczyść listę słów")
+	self.clear.grid(column=5, row=2, sticky=W)
+	self.search = Button(self, text="wyszukaj")
+	self.search.grid(column=4, row=2, sticky=W)
+    def drawInput(self):
+	'''rysuje etykiete, pole wprowadzania i klawisz dodawania slowa'''
+	self.label2 = Label(self, text="Słowo:")
+	self.label2.grid(column=4, row=3, pady=5, padx=2, sticky=W)
+	self.wejscie = Entry(self, width=32)
+	self.wejscie.grid(column=4, row=4, padx=5, columnspan=3, sticky=W)
+	self.add = Button(self, text="dodaj")
+	self.add.grid(column=4, row=5, padx=2, sticky=W)
 
 def main():
     root = Tk() #glowne okno aplikacji
