@@ -5,6 +5,7 @@ from Tkinter import Tk, Frame, Text, BOTH, W, N, E, S, DISABLED, NORMAL
 from ttk import Style, Button, Label, Entry, Scrollbar
 from ScrolledText import ScrolledText
 from Tkconstants import END, FIRST
+import tkMessageBox as MesBox
 
 class Ramka(Frame):
     def __init__(self, parent):
@@ -22,6 +23,8 @@ class Ramka(Frame):
 	#ustawiamy styl
 	self.style = Style()
 	self.style.theme_use("classic")
+	#co robic przy zamykaniu okna
+	self.parent.protocol("WM_DELETE_WINDOW", self.question)
 	self.initUI()
     def initUI(self):
 	'''zajmuje sie rozkladem poszczegolnych elementow'''
@@ -90,10 +93,14 @@ class Ramka(Frame):
 	    self.pole.delete(1.0, END)
 	    self.pole.config(state=DISABLED)
 	    self.listaSlow = []
+    def question(self):
+	'''metoda rysujaca okienko "czy na pewno chcesz zakonczyc"'''
+	if MesBox.askokcancel("Koniec","Czy na pewno chcesz wyjść z aplikacji?"):
+	    self.quit()
 
 def main():
     root = Tk() #glowne okno aplikacji
-    root.geometry("650x400+100+100")#wymiary=600x400, pozycja = (100,100)
+    root.geometry("650x400+100+100")#wymiary=650x400, pozycja = (100,100)
     app = Ramka(root)
     root.mainloop()
 
