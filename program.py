@@ -48,7 +48,7 @@ class Ramka(Frame):
 	self.saveAsButton.grid(row=7, column=0, sticky=W)
 	self.openButton = Button(self, text="otwórz...") #klawisz otwierania
 	self.openButton.grid(row=7, column=1, sticky=W)
-	self.clearText = Button(self, text="wyczyść tekst")
+	self.clearText = Button(self, text="wyłącz podświetlenie", command=self.unhighlight)
 	self.clearText.grid(row=7, column=2, sticky=W)
     def drawList(self):
 	'''rysuje etykiete, liste slow do wyszukania oraz klawisz wyszukania i czyszczenia listy'''
@@ -77,6 +77,7 @@ class Ramka(Frame):
     def addWord(self, event=None):
 	'''metoda wywolywana po kliknieciu klawisza <dodaj>'''
 	wartosc = self.wejscie.get()
+	#print type(wartosc)
 	if wartosc != "" and wartosc not in self.listaSlow:
 	    if not self.buildAho:
 		self.buildAho = True
@@ -110,16 +111,21 @@ class Ramka(Frame):
 	'''metoda rysujaca okienko "czy na pewno chcesz zakonczyc"'''
 	if MesBox.askokcancel("Koniec","Czy na pewno chcesz wyjść z aplikacji?"):
 	    self.quit()
-    def search(self):
-	#wyczyscic zaznaczenie!
+    def unhighlight(self):
+	'''metoda wylaczajaca aktualne podswietlenie wyszukanych wzorcow'''
 	if self.highlighted:
 	    self.tekst.tag_remove("highlight", "1.0", "end")
 	    self.highlight = False
+    def search(self):
+	'''metoda wyszukujaca wzorce'''
+	self.unhighlight()
 	if self.buildAho:
+	    self.Aho = AhoCorasick()
 	    self.Aho.makeTree(self.listaSlow)
 	    self.Aho.build()
 	    self.buildAho = False
 	tekst = self.tekst.get("1.0","end")
+	#print type(tekst)
 	res = self.Aho.search(tekst, True)
 	if res != set():
 	    #self.tekst.tag_add("highlight", "5.0", "6.0")
