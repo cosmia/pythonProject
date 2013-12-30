@@ -6,12 +6,14 @@ from ttk import Style, Button, Label, Entry, Scrollbar
 from ScrolledText import ScrolledText
 from Tkconstants import END, FIRST
 import tkMessageBox as MesBox
+from ahoCorasick import *
 
 class Ramka(Frame):
     def __init__(self, parent):
 	'''tworzy obiekt Example dziedziczacy po Frame, rodzicem ma byc parent'''
 	self.listaSlow = [] #lista slow do wyszukania
 	self.buildAho = False #na poczatku nie musimy budowac automatu
+	self.Aho = AhoCorasick()
 	#ramka znajduje sie w oknie...
 	#wywolanie konstruktora rodzica - rodzicem jest parent
 	Frame.__init__(self, parent)
@@ -58,7 +60,7 @@ class Ramka(Frame):
 	self.clear = Button(self, text="wyczyść listę słów", command=self.clearList)
 	self.clear.grid(column=5, row=2, sticky=W)
 	self.clear.bind('<Return>', self.clearList)
-	self.search = Button(self, text="wyszukaj")
+	self.search = Button(self, text="wyszukaj", command=self.search)
 	self.search.grid(column=4, row=2, sticky=W)
     def drawInput(self):
 	'''rysuje etykiete, pole wprowadzania i klawisz dodawania slowa'''
@@ -79,17 +81,17 @@ class Ramka(Frame):
 	    maxLen = self.pole["width"]
 	    improved = wartosc +", "
 	    self.pole.config(state=NORMAL)
-	    lenNow = len(self.pole.get(1.0, END))-1
+	    lenNow = len(self.pole.get("1.0", "end"))-1
 	    linesBefore = lenNow/maxLen
 	    signsAfter = lenNow + len(improved)
 	    linesAfter = signsAfter/maxLen
 	    if (signsAfter-1)%maxLen == 0:
-		self.pole.insert(END, wartosc+",")
+		self.pole.insert("end", wartosc+",")
 	    else:
 		if linesAfter > linesBefore and len(improved) <= maxLen and signsAfter%maxLen > 0:
 		    for i in range(maxLen - lenNow%maxLen):
-			self.pole.insert(END, " ")
-		self.pole.insert(END, improved)
+			self.pole.insert("end", " ")
+		self.pole.insert("end", improved)
 	    self.pole.config(state=DISABLED)
 	    self.listaSlow.append(wartosc)
 	self.wejscie.delete(0, END)
@@ -97,14 +99,25 @@ class Ramka(Frame):
 	'''metoda czyszczaca liste slow'''
 	if self.listaSlow != []:
 	    self.pole.config(state=NORMAL)
-	    self.pole.delete(1.0, END)
+	    self.pole.delete("1.0", "end")
 	    self.pole.config(state=DISABLED)
 	    self.listaSlow = []
+	    self.Aho = AhoCorasick()
 	    self.buildAho = True
     def question(self):
 	'''metoda rysujaca okienko "czy na pewno chcesz zakonczyc"'''
 	if MesBox.askokcancel("Koniec","Czy na pewno chcesz wyjść z aplikacji?"):
 	    self.quit()
+    def search(self):
+	#wyczyscic zaznaczenie!
+	"""if self.buildAho:
+	    self.Aho.makeTree(self.listaSlow)
+	    self.Aho.build()
+	    self.buildAho = False
+	tekst = self.tekst.get("1.0","end")
+	res = self.Aho.search(tekst, True)"""
+	self.tekst.tag_add("highlightline", "5.0", "6.0")
+	self.tekst.tag_configure("highlightline", background="yellow")
 
 def main():
     root = Tk() #glowne okno aplikacji
