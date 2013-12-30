@@ -11,6 +11,7 @@ class Ramka(Frame):
     def __init__(self, parent):
 	'''tworzy obiekt Example dziedziczacy po Frame, rodzicem ma byc parent'''
 	self.listaSlow = [] #lista slow do wyszukania
+	self.buildAho = False #na poczatku nie musimy budowac automatu
 	#ramka znajduje sie w oknie...
 	#wywolanie konstruktora rodzica - rodzicem jest parent
 	Frame.__init__(self, parent)
@@ -73,6 +74,8 @@ class Ramka(Frame):
 	'''metoda wywolywana po kliknieciu klawisza <dodaj>'''
 	wartosc = self.wejscie.get()
 	if wartosc != "" and wartosc not in self.listaSlow:
+	    if not self.buildAho:
+		self.buildAho = True
 	    maxLen = self.pole["width"]
 	    improved = wartosc +", "
 	    self.pole.config(state=NORMAL)
@@ -97,6 +100,7 @@ class Ramka(Frame):
 	    self.pole.delete(1.0, END)
 	    self.pole.config(state=DISABLED)
 	    self.listaSlow = []
+	    self.buildAho = True
     def question(self):
 	'''metoda rysujaca okienko "czy na pewno chcesz zakonczyc"'''
 	if MesBox.askokcancel("Koniec","Czy na pewno chcesz wyjść z aplikacji?"):
