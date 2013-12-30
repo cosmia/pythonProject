@@ -112,21 +112,27 @@ class Ramka(Frame):
 	    self.quit()
     def search(self):
 	#wyczyscic zaznaczenie!
-	#if self.highlited:
-	"""if self.buildAho:
+	if self.highlighted:
+	    self.tekst.tag_remove("highlight", "1.0", "end")
+	    self.highlight = False
+	if self.buildAho:
 	    self.Aho.makeTree(self.listaSlow)
 	    self.Aho.build()
 	    self.buildAho = False
 	tekst = self.tekst.get("1.0","end")
-	res = self.Aho.search(tekst, True)"""
-	if self.highlighted:
-	    self.tekst.tag_remove("highlight", "1.0", "end")
-	    self.highlighted = False
-	else:
-	    self.tekst.tag_add("highlight", "5.0", "6.0")
-	    self.tekst.tag_add("highlight", "2.0", "3.0")
-	    #self.tekst.tag_configure("highlight", background="yellow")
+	print str(tekst)
+	print type(tekst)
+	res = self.Aho.search(str(tekst), True)
+	if res != set():
+	    #self.tekst.tag_add("highlight", "5.0", "6.0")
 	    self.highlighted = True
+	    for i in res:
+		end = i[0]+1
+		nr = i[1] #nr slowa
+		start = end - len(self.Aho.words[nr])
+		first = "1.0+"+str(start)+"c"
+		last = "1.0+"+str(end)+"c"
+		self.tekst.tag_add("highlight",first, last)
 
 def main():
     root = Tk() #glowne okno aplikacji
