@@ -24,7 +24,7 @@ class Node:
     def labelCorrect(self, label):
 	'''sprawdza, czy label jest poprawna etykieta krawedzi
 	   jesli nie, rzuca NodeException'''
-	if not isinstance(label, str):
+	if not isinstance(label, (str, unicode)):
 	    raise NodeException("label must be a character")
 	if len(label) != 1:
 	    raise NodeException("label must be exactly one character long")

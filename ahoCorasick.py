@@ -24,7 +24,7 @@ class AhoCorasick:
     def addWord(self, word):
 	'''dodaje slowo word do automatu/drzewa
 	   rzuca AhoCorasickException, jesli word nie jest stringiem'''
-	if not isinstance(word, str):
+	if not isinstance(word, (str, unicode)):
 	    raise AhoCorasickException("argument is not a string")
 	dl = len(word)
 	if dl == 0: return #nie dodajemy pustego slowa
@@ -97,7 +97,7 @@ class AhoCorasick:
 	if not isinstance(wordList, list):
 	    raise AhoCorasickException("argument is not a list")
 	for i in wordList:
-	    if not isinstance(i, str):
+	    if not isinstance(i, (str, unicode)):
 		raise AhoCorasickException("element of the list is not a string")
 	for i in wordList:
 	    self.addWord(i)
@@ -113,7 +113,7 @@ class AhoCorasick:
 	   jesli returnSet jest True, to zwracamy zbior krotek o dlugosci dwa, krotka
 	      zawiera pozycje, na ktorej znalazla slowo, oraz indeks slowa
 	   jesli tekst nie jest zmienna string, to rzuca AhoCorasickException'''
-	if not isinstance(tekst, str):
+	if not isinstance(tekst, (str, unicode)):
 	    raise AhoCorasickException("argument is not a string")
 	node = self.n
 	if not returnSet: message = ""
