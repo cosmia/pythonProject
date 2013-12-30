@@ -14,6 +14,7 @@ class Ramka(Frame):
 	self.listaSlow = [] #lista slow do wyszukania
 	self.buildAho = False #na poczatku nie musimy budowac automatu
 	self.Aho = AhoCorasick()
+	self.highlighted = False
 	#ramka znajduje sie w oknie...
 	#wywolanie konstruktora rodzica - rodzicem jest parent
 	Frame.__init__(self, parent)
@@ -42,6 +43,7 @@ class Ramka(Frame):
 	self.label0.grid(row=0,column=0, padx=4, columnspan=2, sticky=W)
 	self.tekst = ScrolledText(self, bg="white") #glowne pole tekstowe
 	self.tekst.grid(row=1, column=0, columnspan=4, rowspan=6, padx=4, sticky=E+W+N+S)
+	self.tekst.tag_configure("highlight", background="yellow")
 	self.saveAsButton = Button(self, text="zapisz jako...") #klawisz zapisywania
 	self.saveAsButton.grid(row=7, column=0, sticky=W)
 	self.openButton = Button(self, text="otwórz...") #klawisz otwierania
@@ -110,14 +112,21 @@ class Ramka(Frame):
 	    self.quit()
     def search(self):
 	#wyczyscic zaznaczenie!
+	#if self.highlited:
 	"""if self.buildAho:
 	    self.Aho.makeTree(self.listaSlow)
 	    self.Aho.build()
 	    self.buildAho = False
 	tekst = self.tekst.get("1.0","end")
 	res = self.Aho.search(tekst, True)"""
-	self.tekst.tag_add("highlightline", "5.0", "6.0")
-	self.tekst.tag_configure("highlightline", background="yellow")
+	if self.highlighted:
+	    self.tekst.tag_remove("highlight", "1.0", "end")
+	    self.highlighted = False
+	else:
+	    self.tekst.tag_add("highlight", "5.0", "6.0")
+	    self.tekst.tag_add("highlight", "2.0", "3.0")
+	    #self.tekst.tag_configure("highlight", background="yellow")
+	    self.highlighted = True
 
 def main():
     root = Tk() #glowne okno aplikacji
