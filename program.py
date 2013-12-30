@@ -78,8 +78,9 @@ class Ramka(Frame):
 	    self.pole.config(state=NORMAL)
 	    lenNow = len(self.pole.get(1.0, END))-1
 	    linesBefore = lenNow/maxLen
-	    linesAfter = (lenNow + len(improved))/maxLen
-	    if linesAfter > linesBefore and len(improved) <= maxLen and linesAfter%maxLen > 0:
+	    signsAfter = lenNow + len(improved)
+	    linesAfter = signsAfter/maxLen
+	    if linesAfter > linesBefore and len(improved) <= maxLen and signsAfter%maxLen > 0:
 		for i in range(maxLen - lenNow%maxLen):
 		    self.pole.insert(END, " ")
 	    self.pole.insert(END, improved)
