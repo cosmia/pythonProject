@@ -120,6 +120,13 @@ class TestAho(unittest.TestCase):
 	self.assertEqual(his.getFail(), s)
 	self.assertEqual(his.getAccept(), set([2]))
 	self.assertEqual(a.words[2], "his")
+    def test_unicode(self):
+	'''kod pokazujacy, ze nalezy uwazac przy dodawaniu slow raz jako str
+	   a raz jako unicode - "ą" != u"ą" etc, stad budowane drzewo moze nie byc poprawne...'''
+	a = AhoCorasick()
+	a.addWord("ą")
+	a.addWord(u"ą")
+	self.assertEqual(len(a.words),2)
     def test_clear(self):
 	'''kod testujacy czyszczenie automatu'''
 	a = AhoCorasick()
