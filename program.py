@@ -80,10 +80,13 @@ class Ramka(Frame):
 	    linesBefore = lenNow/maxLen
 	    signsAfter = lenNow + len(improved)
 	    linesAfter = signsAfter/maxLen
-	    if linesAfter > linesBefore and len(improved) <= maxLen and signsAfter%maxLen > 0:
-		for i in range(maxLen - lenNow%maxLen):
-		    self.pole.insert(END, " ")
-	    self.pole.insert(END, improved)
+	    if (signsAfter-1)%maxLen == 0:
+		self.pole.insert(END, wartosc+",")
+	    else:
+		if linesAfter > linesBefore and len(improved) <= maxLen and signsAfter%maxLen > 0:
+		    for i in range(maxLen - lenNow%maxLen):
+			self.pole.insert(END, " ")
+		self.pole.insert(END, improved)
 	    self.pole.config(state=DISABLED)
 	    self.listaSlow.append(wartosc)
 	self.wejscie.delete(0, END)
