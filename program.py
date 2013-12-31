@@ -6,6 +6,7 @@ from ttk import Style, Button, Label, Entry, Scrollbar
 from ScrolledText import ScrolledText
 from Tkconstants import END, FIRST
 import tkMessageBox as MesBox
+import tkFileDialog as FileDial
 from ahoCorasick import *
 
 class Ramka(Frame):
@@ -46,7 +47,7 @@ class Ramka(Frame):
 	self.tekst.tag_configure("highlight", background="yellow")
 	self.saveAsButton = Button(self, text="zapisz jako...") #klawisz zapisywania
 	self.saveAsButton.grid(row=7, column=0, sticky=W)
-	self.openButton = Button(self, text="otwórz...") #klawisz otwierania
+	self.openButton = Button(self, text="otwórz...", command=self.fileOpen) #klawisz otwierania
 	self.openButton.grid(row=7, column=1, sticky=W)
 	self.clearText = Button(self, text="wyłącz podświetlenie", command=self.unhighlight)
 	self.clearText.grid(row=7, column=2, sticky=W)
@@ -137,6 +138,15 @@ class Ramka(Frame):
 		first = "1.0+"+str(start)+"c"
 		last = "1.0+"+str(end)+"c"
 		self.tekst.tag_add("highlight",first, last)
+    def fileOpen(self):
+	rozszerzenia = [('tekstowe', '*.txt'), ('tekstowe','*.dat'), ('wszystkie', '*')]
+	okno = FileDial.Open(self, filetypes=rozszerzenia)
+	nazwaPliku = okno.show()
+	if nazwaPliku != '':
+	    plik = open(nazwaPliku, "r") #do odczytu
+	    tekst = plik.read()
+	    self.tekst.delete("1.0","end")
+	    self.tekst.insert("end", tekst)
 
 def main():
     root = Tk() #glowne okno aplikacji
