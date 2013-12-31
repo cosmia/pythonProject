@@ -45,7 +45,7 @@ class Ramka(Frame):
 	self.tekst = ScrolledText(self, bg="white") #glowne pole tekstowe
 	self.tekst.grid(row=1, column=0, columnspan=4, rowspan=6, padx=4, sticky=E+W+N+S)
 	self.tekst.tag_configure("highlight", background="yellow")
-	self.saveAsButton = Button(self, text="zapisz jako...") #klawisz zapisywania
+	self.saveAsButton = Button(self, text="zapisz jako...", command=self.fileSave) #klawisz zapisywania
 	self.saveAsButton.grid(row=7, column=0, sticky=W)
 	self.openButton = Button(self, text="otwórz...", command=self.fileOpen) #klawisz otwierania
 	self.openButton.grid(row=7, column=1, sticky=W)
@@ -162,6 +162,15 @@ class Ramka(Frame):
 	    self.tekst.tag_remove("highlight", "1.0", "end")
 	    self.tekst.delete("1.0","end")
 	    self.tekst.insert("end", tekst)
+    def fileSave(self):
+	rozszerzenia = [('tekstowe', '*.txt'), ('tekstowe','*.dat'), ('wszystkie', '*')]
+	okno = FileDial.SaveAs(filetypes=rozszerzenia, title="Zapisz plik")
+	nazwaPliku = okno.show()
+	if nazwaPliku != '':
+	    tresc = self.tekst.get("1.0", "end")
+	    plik = open(nazwaPliku, "w")
+	    plik.write(tresc)
+	    plik.close()
 
 def main():
     root = Tk() #glowne okno aplikacji
