@@ -164,13 +164,20 @@ class Ramka(Frame):
 	    self.tekst.insert("end", tekst)
     def fileSave(self):
 	rozszerzenia = [('tekstowe', '*.txt'), ('tekstowe','*.dat'), ('wszystkie', '*')]
-	okno = FileDial.SaveAs(filetypes=rozszerzenia, title="Zapisz plik")
-	nazwaPliku = okno.show()
-	if nazwaPliku != '':
-	    tresc = self.tekst.get("1.0", "end")
-	    plik = open(nazwaPliku, "w")
-	    plik.write(tresc.encode("utf-8"))
-	    plik.close()
+	opened = False
+	try:
+	    okno = FileDial.SaveAs(filetypes=rozszerzenia, title="Zapisz plik")
+	    nazwaPliku = okno.show()
+	    if nazwaPliku != '' and nazwaPliku != ():
+		tresc = self.tekst.get("1.0", "end")
+		plik = open(nazwaPliku, "w")
+		opened = True
+		plik.write(tresc.encode("utf-8"))
+	except Exception as e:
+	    mes = str(e)
+	    MesBox.showerror("Błąd", mes)
+	finally:
+	    if opened: plik.close()
 
 def main():
     root = Tk() #glowne okno aplikacji
