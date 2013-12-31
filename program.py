@@ -146,7 +146,7 @@ class Ramka(Frame):
 	    okno = FileDial.Open(self, filetypes=rozszerzenia)
 	    nazwaPliku = okno.show()
 	    #print nazwaPliku
-	    if nazwaPliku != '':
+	    if nazwaPliku != '' and nazwaPliku != ():
 		plik = open(nazwaPliku, "r") #do odczytu
 		opened = True
 		tekst = plik.read()
