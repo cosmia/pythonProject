@@ -139,12 +139,27 @@ class Ramka(Frame):
 		last = "1.0+"+str(end)+"c"
 		self.tekst.tag_add("highlight",first, last)
     def fileOpen(self):
+	opened = False
+	read = False
 	rozszerzenia = [('tekstowe', '*.txt'), ('tekstowe','*.dat'), ('wszystkie', '*')]
-	okno = FileDial.Open(self, filetypes=rozszerzenia)
-	nazwaPliku = okno.show()
-	if nazwaPliku != '':
-	    plik = open(nazwaPliku, "r") #do odczytu
-	    tekst = plik.read()
+	try:
+	    okno = FileDial.Open(self, filetypes=rozszerzenia)
+	    nazwaPliku = okno.show()
+	    #print nazwaPliku
+	    if nazwaPliku != '':
+		plik = open(nazwaPliku, "r") #do odczytu
+		opened = True
+		tekst = plik.read()
+		read = True
+	except Exception as e:
+	    mes = str(e)
+	    MesBox.showerror("Błąd", mes)
+	finally:
+	    if opened:
+		plik.close()
+	if read:
+	    self.highlighted = False
+	    self.tekst.tag_remove("highlight", "1.0", "end")
 	    self.tekst.delete("1.0","end")
 	    self.tekst.insert("end", tekst)
 
