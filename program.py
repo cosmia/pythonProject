@@ -51,6 +51,8 @@ class Ramka(Frame):
 	self.openButton.grid(row=7, column=1, sticky=W)
 	self.clearText = Button(self, text="wyłącz podświetlenie", command=self.unhighlight)
 	self.clearText.grid(row=7, column=2, sticky=W)
+	self.helpButton = Button(self, text="pomoc")
+	self.helpButton.grid(row=7, column=5, sticky=E, padx=12)
     def drawList(self):
 	'''rysuje etykiete, liste slow do wyszukania oraz klawisz wyszukania i czyszczenia listy'''
 	self.label1 = Label(self, text="Aktualne slowa:") #etykieta z boku
