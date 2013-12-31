@@ -169,7 +169,7 @@ class Ramka(Frame):
 	if nazwaPliku != '':
 	    tresc = self.tekst.get("1.0", "end")
 	    plik = open(nazwaPliku, "w")
-	    plik.write(tresc)
+	    plik.write(tresc.encode("utf-8"))
 	    plik.close()
 
 def main():
