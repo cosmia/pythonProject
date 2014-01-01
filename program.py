@@ -9,6 +9,23 @@ import tkMessageBox as MesBox
 import tkFileDialog as FileDial
 from ahoCorasick import *
 
+class Pomoc(Frame):
+    def __init__(self, parent):
+	'''tworzy okno pomocy'''
+	Frame.__init__(self, parent)
+	self.parent = parent
+	self.parent.title("Pomoc")
+	self.pack(fill=BOTH, expand=True)
+	self.style = Style()
+	self.style.theme_use("classic")
+	self.columnconfigure(0, weight=1)
+	self.rowconfigure(1, weight=1)
+	self.label = Label(self, text="Treść pomocy")
+	self.label.grid(row=0, column=0, sticky=W)
+	self.tekst = ScrolledText(self, bg="white")
+	self.tekst.grid(row=1, column=0, sticky=E+W+N+S)
+
+
 class Ramka(Frame):
     def __init__(self, parent):
 	'''tworzy obiekt Example dziedziczacy po Frame, rodzicem ma byc parent'''
@@ -51,7 +68,7 @@ class Ramka(Frame):
 	self.openButton.grid(row=7, column=1, sticky=W)
 	self.clearText = Button(self, text="wyłącz podświetlenie", command=self.unhighlight)
 	self.clearText.grid(row=7, column=2, sticky=W)
-	self.helpButton = Button(self, text="pomoc")
+	self.helpButton = Button(self, text="pomoc", command=self.showHelp)
 	self.helpButton.grid(row=7, column=5, sticky=E, padx=12)
     def drawList(self):
 	'''rysuje etykiete, liste slow do wyszukania oraz klawisz wyszukania i czyszczenia listy'''
@@ -112,8 +129,9 @@ class Ramka(Frame):
 	    self.buildAho = True
     def question(self):
 	'''metoda rysujaca okienko "czy na pewno chcesz zakonczyc"'''
-	if MesBox.askokcancel("Koniec","Czy na pewno chcesz wyjść z aplikacji?"):
-	    self.quit()
+	wyn = MesBox.askokcancel("Koniec","Czy na pewno chcesz wyjść z aplikacji?")
+	if wyn: self.quit()
+	print wyn
     def unhighlight(self):
 	'''metoda wylaczajaca aktualne podswietlenie wyszukanych wzorcow'''
 	if self.highlighted:
@@ -180,6 +198,11 @@ class Ramka(Frame):
 	    MesBox.showerror("Błąd", mes)
 	finally:
 	    if opened: plik.close()
+    def showHelp(self):
+	pomoc = Tk()
+	pomoc.geometry("400x500+150+150")
+	okno = Pomoc(pomoc)
+	pomoc.mainloop()
 
 def main():
     root = Tk() #glowne okno aplikacji
