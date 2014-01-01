@@ -26,11 +26,22 @@ class Pomoc(Frame):
 	self.tekst.grid(row=1, column=0, sticky=E+W+N+S)
 	self.wczytajPomoc()
     def wczytajPomoc(self):
-	plik = open("pomoc.txt", "r")
-	wiadomosc = plik.read()
-	self.tekst.delete("1.0", "end")
-	self.tekst.insert("1.0", wiadomosc)
-	plik.close()
+	read = False
+	opened = False
+	try:
+	    plik = open("pomoc.txt", "r")
+	    opened = True
+	    wiadomosc = plik.read()
+	    read = True
+	except Exception as e:
+	    mes = str(e)
+	    MesBox.showerror("Błąd", mes)
+	finally:
+	    if read:
+		self.tekst.delete("1.0", "end")
+		self.tekst.insert("1.0", wiadomosc)
+	    if opened:
+		plik.close()
 
 
 class Ramka(Frame):
@@ -184,11 +195,11 @@ class Ramka(Frame):
 	finally:
 	    if opened:
 		plik.close()
-	if read:
-	    self.highlighted = False
-	    self.tekst.tag_remove("highlight", "1.0", "end")
-	    self.tekst.delete("1.0","end")
-	    self.tekst.insert("end", tekst)
+	    if read:
+		self.highlighted = False
+		self.tekst.tag_remove("highlight", "1.0", "end")
+		self.tekst.delete("1.0","end")
+		self.tekst.insert("end", tekst)
     def fileSave(self):
 	rozszerzenia = [('tekstowe', '*.txt'), ('tekstowe','*.dat'), ('wszystkie', '*')]
 	opened = False
