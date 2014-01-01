@@ -24,6 +24,13 @@ class Pomoc(Frame):
 	self.label.grid(row=0, column=0, sticky=W)
 	self.tekst = ScrolledText(self, bg="white")
 	self.tekst.grid(row=1, column=0, sticky=E+W+N+S)
+	self.wczytajPomoc()
+    def wczytajPomoc(self):
+	plik = open("pomoc.txt", "r")
+	wiadomosc = plik.read()
+	self.tekst.delete("1.0", "end")
+	self.tekst.insert("1.0", wiadomosc)
+	plik.close()
 
 
 class Ramka(Frame):
