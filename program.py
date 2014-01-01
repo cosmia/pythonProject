@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from Tkinter import Tk, Frame, Text, BOTH, W, N, E, S, DISABLED, NORMAL
+from Tkinter import Tk, Frame, Text, BOTH, W, N, E, S, DISABLED, NORMAL, WORD
 from ttk import Style, Button, Label, Entry, Scrollbar
 from ScrolledText import ScrolledText
 from Tkconstants import END, FIRST
@@ -77,9 +77,9 @@ class Ramka(Frame):
 	'''rysuje glowne pole tekstowe, etykiete tego pola, klawisze zapisz i otworz'''
 	self.label0 = Label(self, text="Tekst do przeszukania:") #pierwsza etykieta
 	self.label0.grid(row=0,column=0, padx=4, columnspan=2, sticky=W)
-	self.tekst = ScrolledText(self, bg="white") #glowne pole tekstowe
+	self.tekst = ScrolledText(self, bg="white", wrap=WORD) #glowne pole tekstowe
 	self.tekst.grid(row=1, column=0, columnspan=4, rowspan=6, padx=4, sticky=E+W+N+S)
-	self.tekst.tag_configure("highlight", background="yellow")
+	self.tekst.tag_configure("highlight", background="yellow", foreground="brown")
 	self.saveAsButton = Button(self, text="zapisz jako...", command=self.fileSave) #klawisz zapisywania
 	self.saveAsButton.grid(row=7, column=0, sticky=W)
 	self.openButton = Button(self, text="otwórz...", command=self.fileOpen) #klawisz otwierania
@@ -133,6 +133,7 @@ class Ramka(Frame):
 		    for i in range(maxLen - lenNow%maxLen):
 			self.pole.insert("end", " ")
 		self.pole.insert("end", improved)
+	    #self.pole.insert("end", improved)
 	    self.pole.config(state=DISABLED)
 	    self.listaSlow.append(wartosc)
 	self.wejscie.delete(0, END)
