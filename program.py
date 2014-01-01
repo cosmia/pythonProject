@@ -130,7 +130,7 @@ class Ramka(Frame):
     def question(self):
 	'''metoda rysujaca okienko "czy na pewno chcesz zakonczyc"'''
 	wyn = MesBox.askokcancel("Koniec","Czy na pewno chcesz wyjść z aplikacji?")
-	if wyn: self.quit()
+	if wyn: quit()
 	print wyn
     def unhighlight(self):
 	'''metoda wylaczajaca aktualne podswietlenie wyszukanych wzorcow'''
