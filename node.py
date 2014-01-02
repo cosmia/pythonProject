@@ -1,13 +1,15 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+from myList import *
+
 class NodeException(Exception):
     '''wyjatek dla klasy Node'''
     def __init__(self, value):
 	'''konstruktor, argumentem tresc przy rzucaniu wyjatku'''
 	self.napis = value
     def __str__(self):
-	'''podaj powod wyjatku'''
+	'''podaje powod wyjatku'''
 	return repr(self.napis)
     __repr__ = __str__
 
@@ -15,10 +17,10 @@ class Node:
     '''klasa opisująca wezel/stan w automacie/drzewie Trie'''
     def __init__(self):
 	'''konstruktor bezargumentowy
-	   accept = set() - pusty zbior,
+	   accept = MyList() - pusta lista,
 	   fail = None
 	   edges = {}'''
-	self.accept = set()
+	self.accept = MyList()
 	self.edges = {}
 	self.fail = None
     def labelCorrect(self, label):
@@ -39,8 +41,8 @@ class Node:
 	    lan += "argument must be a node"
 	    raise NodeException(lan)
     def getAccept(self):
-	'''zwraca zbior indeksow slow, ktore akceptuje ten wezel,
-	   zbior jest pusty, jesli ten wezel niczego nie akceptuje'''
+	'''zwraca liste indeksow slow, ktore akceptuje ten wezel,
+	   lista jest pusta, jesli ten wezel niczego nie akceptuje'''
 	return self.accept
     def getLabels(self):
 	'''zwraca liste etykiet dla krawedzi wychodzacych z tego wezla'''
@@ -62,16 +64,15 @@ class Node:
 	return self.fail
     def setAccept(self, number):
 	'''ustalamy, ze ten wezel akceptuje slowo o indeksie number lub slowa o
-	   indeksach ze zbioru number
+	   indeksach z MyList number
 	   rzuca NodeException, jesli number nie jest calkowita liczba nieujemna
-	   albo zbiorem calkowitych liczb nieujemnych'''
-	if isinstance(number, set):
+	   albo obiektem MyList calkowitych liczb nieujemnych'''
+	if isinstance(number, MyList):
 	    for i in number:
 		if not isinstance(i, (long, int)) or i < 0:
 		    mes = "argument should be a non-negative integer or long or a set of those"
 		    raise NodeException(mes)
-	    for i in number:
-		self.setAccept(i)
+	    self.accept + number
 	    return
 	if not isinstance(number, (long, int)):
 	    raise NodeException("argument should be an integer or long or a set of those")
