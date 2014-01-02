@@ -161,14 +161,14 @@ class Ramka(Frame):
 	'''metoda wyszukujaca wzorce'''
 	self.unhighlight()
 	if self.buildAho:
-	    self.Aho = AhoCorasick()
+	    self.Aho.clear()
 	    self.Aho.makeTree(self.listaSlow)
 	    self.Aho.build()
 	    self.buildAho = False
 	tekst = self.tekst.get("1.0","end")
 	#print type(tekst)
 	res = self.Aho.search(tekst, True)
-	if res != set():
+	if set(res) != set():
 	    #self.tekst.tag_add("highlight", "5.0", "6.0")
 	    self.highlighted = True
 	    for i in res:
