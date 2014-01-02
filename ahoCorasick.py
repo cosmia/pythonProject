@@ -21,9 +21,13 @@ class AhoCorasick:
 	   words - pusta liczba slow zakodowanych w drzewie'''
 	self.n = Node()
 	self.words = []
+	self.built = False
     def addWord(self, word):
 	'''dodaje slowo word do automatu/drzewa
-	   rzuca AhoCorasickException, jesli word nie jest stringiem'''
+	   rzuca AhoCorasickException, jesli word nie jest stringiem
+	     lub zbudowano juz automat'''
+	if self.built:
+	    raise AhoCorasickException("automaton has been built already")
 	if not isinstance(word, (str, unicode)):
 	    raise AhoCorasickException("argument is not a string")
 	dl = len(word)
@@ -48,7 +52,7 @@ class AhoCorasick:
 	    #mozna to w sumie robic przy budowaniu automatu...
 	    i += 1
 	#jesli jeszcze nie dodalismy tego slowa
-	if wezel.getAccept() == set():
+	if wezel.getAccept() == MyList():
 	    ktore = len(self.words)
 	    wezel.setAccept(ktore)
 	    self.words.append(word)
@@ -69,7 +73,7 @@ class AhoCorasick:
 		return False
 	    wezel = wezel.getAim(litera)
 	    i += 1
-	if wezel.getAccept() != set():
+	if wezel.getAccept() != MyList():
 	    return True
 	return False
     def build(self):
@@ -90,10 +94,14 @@ class AhoCorasick:
 		    v = v.getFail()        #to szukaj krotszego dopasowania
 		u.setFail(v.getAim(a))
 		u.setAccept(u.getFail().getAccept()) #dodaj nowe akceptowane slowa
+	self.built = True
     def makeTree(self, wordList):
 	'''konstruuje drzewo i automat na podstawie listy slow wordList
 	   takze dodaje do istniejacego automatu wzorce z wordList
-	   rzuca AhoCorasickException, jesli wordList nie jest lista stringow'''
+	   rzuca AhoCorasickException, jesli wordList nie jest lista stringow
+	     lub zbudowano juz automat'''
+	if self.built:
+	    raise AhoCorasickException("automaton has been built already")
 	if not isinstance(wordList, list):
 	    raise AhoCorasickException("argument is not a list")
 	for i in wordList:
@@ -106,6 +114,7 @@ class AhoCorasick:
 	'''czysci automat i drzewo'''
 	self.words = []
 	self.n = Node()
+	self.built = False
     def search(self, tekst, returnSet=False):
 	'''wyszukuje wzorce w zmiennej tekst, zwraca string z wiadomoscia o wynikach
 	   domyslny argument returnSet mowi o formacie zwracanej wartosci

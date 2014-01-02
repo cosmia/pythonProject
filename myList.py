@@ -15,6 +15,8 @@ class Element:
     def __init__(self, arg=None, follow=None):
 	'''konstruktor; arg - element znajdujacy sie w liscie,
 	     follow - nastepny element na liscie'''
+	if follow is not None and not isinstance(follow, Element):
+	    raise MyListException("argument is not an Element")
 	self.arg = arg
 	self.follow = follow
     def setData(self, arg):
@@ -40,8 +42,6 @@ class MyList:
 	'''konstruktor, tworzy pusta liste'''
 	self.first = None
 	self.last = None
-	self.follow  = None
-	self.data = None
 	self.current = None
 	self.length = 0
     def add(self, argument):
@@ -57,8 +57,16 @@ class MyList:
     def __add__(self, other):
 	'''dodaje do siebie dwa obiekty MyList
 	   zmienia pierwszy obiekt, zwraca wskaznik na pierwszy obiekt'''
+	if other is None or other.first is None:
+	    return self
 	if not isinstance(other, MyList):
 	    raise MyListException("the other argument is not a MyList")
+	if self.first is None:
+	    self.first = other.first
+	    self.length = other.length
+	    self.last = other.last
+	    return self
+	#print other.first
 	self.last.setNext(other.first)
 	self.length += other.length
 	return self

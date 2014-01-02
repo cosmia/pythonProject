@@ -72,6 +72,7 @@ class Node:
 		if not isinstance(i, (long, int)) or i < 0:
 		    mes = "argument should be a non-negative integer or long or a set of those"
 		    raise NodeException(mes)
+	    #print number
 	    self.accept + number
 	    return
 	if not isinstance(number, (long, int)):
