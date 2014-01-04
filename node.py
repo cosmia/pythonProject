@@ -14,7 +14,7 @@ class NodeException(Exception):
     __repr__ = __str__
 
 class Node:
-    '''klasa opisująca wezel/stan w automacie/drzewie Trie'''
+    '''klasa opisujaca wezel/stan w automacie/drzewie Trie'''
     def __init__(self):
 	'''konstruktor bezargumentowy
 	   accept = MyList() - pusta lista,
