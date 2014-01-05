@@ -10,6 +10,7 @@ import tkFileDialog as FileDial
 from ahoCorasick import *
 
 class Pomoc(Frame):
+    '''okno z pomoca'''
     def __init__(self, parent):
 	'''tworzy okno pomocy'''
 	Frame.__init__(self, parent)
@@ -26,10 +27,11 @@ class Pomoc(Frame):
 	self.tekst.grid(row=1, column=0, sticky=E+W+N+S)
 	self.wczytajPomoc()
     def wczytajPomoc(self):
+	'''wczytuje tresc pomocy z pliku'''
 	read = False
 	opened = False
 	try:
-	    plik = open("pomoc.txt", "r")
+	    plik = open("pomoc.rd", "r")
 	    opened = True
 	    wiadomosc = plik.read()
 	    read = True
@@ -179,6 +181,7 @@ class Ramka(Frame):
 		last = "1.0+"+str(end)+"c"
 		self.tekst.tag_add("highlight",first, last)
     def fileOpen(self):
+	'''metoda otwierajaca plik'''
 	opened = False
 	read = False
 	rozszerzenia = [('tekstowe', '*.txt'), ('tekstowe','*.dat'), ('wszystkie', '*')]
@@ -203,6 +206,7 @@ class Ramka(Frame):
 		self.tekst.delete("1.0","end")
 		self.tekst.insert("end", tekst)
     def fileSave(self):
+	'''metoda zapisujaca plik'''
 	rozszerzenia = [('tekstowe', '*.txt'), ('tekstowe','*.dat'), ('wszystkie', '*')]
 	opened = False
 	try:
@@ -219,6 +223,7 @@ class Ramka(Frame):
 	finally:
 	    if opened: plik.close()
     def showHelp(self):
+	'''metoda otwierajaca okno pomocy'''
 	pomoc = Tk()
 	pomoc.geometry("400x500+150+150")
 	okno = Pomoc(pomoc)
