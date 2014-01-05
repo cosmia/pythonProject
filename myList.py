@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-class MyListException(Exception):
+class MyListError(Exception):
     '''wyjatek dla klasy MyList'''
     def __init__(self, mes):
         '''konstruktor, argumentem tresc przy rzucaniu wyjatku'''
@@ -16,7 +16,7 @@ class Element:
         '''konstruktor; arg - element znajdujacy sie w liscie,
              follow - nastepny element na liscie'''
         if follow is not None and not isinstance(follow, Element):
-            raise MyListException("argument is not an Element")
+            raise MyListError("argument is not an Element")
         self.arg = arg
         self.follow = follow
     def setData(self, arg):
@@ -25,7 +25,7 @@ class Element:
     def setNext(self, follow):
         '''ustawienie nastepnego elementu na liscie na follow'''
         if not isinstance(follow, Element):
-            raise MyListException("argument is not an Element")
+            raise MyListError("argument is not an Element")
         self.follow = follow
     def getData(self):
         '''zwraca zawartosc elementu listy'''
@@ -60,7 +60,7 @@ class MyList:
         if other is None or other.first is None:
             return self
         if not isinstance(other, MyList):
-            raise MyListException("the other argument is not a MyList")
+            raise MyListError("the other argument is not a MyList")
         if self.first is None:
             self.first = other.first
             self.length = other.length

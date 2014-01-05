@@ -24,8 +24,8 @@ class TestNode(unittest.TestCase):
         self.assertTrue(4 in s)
         self.assertTrue(8 in s)
         self.assertFalse(7 in s)
-        self.assertRaises(NodeException, n.setAccept, 6.0)
-        self.assertRaises(NodeException, n.setAccept, -7)
+        self.assertRaises(NodeError, n.setAccept, 6.0)
+        self.assertRaises(NodeError, n.setAccept, -7)
         mySet = MyList()
         mySet.add(5)
         n.setAccept(mySet)
@@ -38,17 +38,17 @@ class TestNode(unittest.TestCase):
         mySet = MyList()
         mySet.add(5)
         mySet.add(8.0)
-        self.assertRaises(NodeException, n.setAccept, mySet)
+        self.assertRaises(NodeError, n.setAccept, mySet)
         mySet = MyList()
         mySet.add(5)
         mySet.add(-8)
-        self.assertRaises(NodeException, n.setAccept, mySet)
+        self.assertRaises(NodeError, n.setAccept, mySet)
     def test_aim(self):
         '''kod testujacy dzialanie metod getAim i setAim'''
         n = Node()
-        self.assertRaises(NodeException, n.getAim, 7)
-        self.assertRaises(NodeException, n.getAim, "")
-        self.assertRaises(NodeException, n.getAim, "df")
+        self.assertRaises(NodeError, n.getAim, 7)
+        self.assertRaises(NodeError, n.getAim, "")
+        self.assertRaises(NodeError, n.getAim, "df")
         #domyslnie kazdy wezel jest korzeniem jakiegos drzewa
         #powinien dla kazdej 'litery' zwracac lacze na siebie,
         #o ile nie ustanowiono inaczej
@@ -62,10 +62,10 @@ class TestNode(unittest.TestCase):
         #inny wezel, np. n
         n2.fail = n
         self.assertEqual(n2.getAim("a"), None)
-        self.assertRaises(NodeException, n.setAim, 7, n2)
-        self.assertRaises(NodeException, n.setAim, "", n2)
-        self.assertRaises(NodeException, n.setAim, "df", n2)
-        self.assertRaises(NodeException, n.setAim, "a", "gfg")
+        self.assertRaises(NodeError, n.setAim, 7, n2)
+        self.assertRaises(NodeError, n.setAim, "", n2)
+        self.assertRaises(NodeError, n.setAim, "df", n2)
+        self.assertRaises(NodeError, n.setAim, "a", "gfg")
     def test_fail(self):
         '''kod testujacy dzialanie metod getFail i setFail'''
         n1 = Node()
@@ -74,7 +74,7 @@ class TestNode(unittest.TestCase):
         self.assertEqual(n2.getFail(), None)
         n2.setFail(n1)
         self.assertEqual(n2.getFail(), n1)
-        self.assertRaises(NodeException, n1.setFail, "gfgf")
+        self.assertRaises(NodeError, n1.setFail, "gfgf")
     def tearDown(self):
         pass
 

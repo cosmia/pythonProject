@@ -3,7 +3,7 @@
 
 from myList import *
 
-class NodeException(Exception):
+class NodeError(Exception):
     '''wyjatek dla klasy Node'''
     def __init__(self, value):
         '''konstruktor, argumentem tresc przy rzucaniu wyjatku'''
@@ -25,21 +25,21 @@ class Node:
         self.fail = None
     def labelCorrect(self, label):
         '''sprawdza, czy label jest poprawna etykieta krawedzi
-           jesli nie, rzuca NodeException'''
+           jesli nie, rzuca NodeError'''
         if not isinstance(label, (str, unicode)):
-            raise NodeException("label must be a character")
+            raise NodeError("label must be a character")
         if len(label) != 1:
-            raise NodeException("label must be exactly one character long")
+            raise NodeError("label must be exactly one character long")
     def nodeCorrect(self, node, n=1):
         '''sprawdza, czy node jest obiektem klasy Node
-           jesli nie, to rzuca NodeException
+           jesli nie, to rzuca NodeError
            n to numer argumentu, ktorym jest node w jakiejs funkcji
              sluzy uszczegolowieniu, ktory argument jest bledny'''
         if not isinstance(node, Node):
             lan = "the "
             if n != 1: lan += "second "
             lan += "argument must be a node"
-            raise NodeException(lan)
+            raise NodeError(lan)
     def getAccept(self):
         '''zwraca liste indeksow slow, ktore akceptuje ten wezel,
            lista jest pusta, jesli ten wezel niczego nie akceptuje'''
@@ -65,25 +65,28 @@ class Node:
     def setAccept(self, number):
         '''ustalamy, ze ten wezel akceptuje slowo o indeksie number lub slowa o
            indeksach z MyList number
-           rzuca NodeException, jesli number nie jest calkowita liczba nieujemna
-           albo obiektem MyList calkowitych liczb nieujemnych'''
+           rzuca NodeError, jesli number nie jest calkowita liczba
+           nieujemna albo obiektem MyList calkowitych liczb nieujemnych'''
         if isinstance(number, MyList):
             for i in number:
                 if not isinstance(i, (long, int)) or i < 0:
-                    mes = "argument should be a non-negative integer or long or a set of those"
-                    raise NodeException(mes)
+                    mes = ("argument should be a non-negative integer" +
+                           " or long or a set of those")
+                    raise NodeError(mes)
             #print number
             self.accept + number
             return
         if not isinstance(number, (long, int)):
-            raise NodeException("argument should be an integer or long or a set of those")
+            raise NodeError(("argument should be an integer or long"+
+                                 " or a set of those"))
         if number < 0:
-            raise NodeException("argument must be non-negative")
+            raise NodeError("argument must be non-negative")
         self.accept.add(number)
     def setAim(self, label, node):
         '''ustalamy, ze z tego wezla bedzie wychodzic krawedz
            etykietowana label i bedzie ona prowadzic do node
-           rzuca NodeException, jesli label niepoprawna lub node nie jest wezlem'''
+           rzuca NodeError, jesli label niepoprawna lub node nie jest wezlem
+        '''
         self.labelCorrect(label)
         self.nodeCorrect(node,2)
         self.edges[label] = node

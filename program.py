@@ -77,22 +77,31 @@ class Ramka(Frame):
         self.drawList()
         self.drawInput()
     def drawMain(self):
-        '''rysuje glowne pole tekstowe, etykiete tego pola, klawisze zapisz i otworz'''
-        self.label0 = Label(self, text="Tekst do przeszukania:") #pierwsza etykieta
+        '''rysuje glowne pole tekstowe, etykiete tego pola, klawisze zapisz i
+           otworz'''
+        #pierwsza etykieta
+        self.label0 = Label(self, text="Tekst do przeszukania:")
         self.label0.grid(row=0,column=0, padx=4, columnspan=2, sticky=W)
-        self.tekst = ScrolledText(self, bg="white", wrap=WORD) #glowne pole tekstowe
-        self.tekst.grid(row=1, column=0, columnspan=4, rowspan=6, padx=4, sticky=E+W+N+S)
-        self.tekst.tag_configure("highlight", background="yellow", foreground="brown")
-        self.saveAsButton = Button(self, text="zapisz jako...", command=self.fileSave) #klawisz zapisywania
+        #glowne pole tekstowe
+        self.tekst = ScrolledText(self, bg="white", wrap=WORD)
+        self.tekst.grid(row=1, column=0, columnspan=4, rowspan=6, padx=4,
+                        sticky=E+W+N+S)
+        self.tekst.tag_configure("highlight", background="yellow",
+                                 foreground="brown")
+        self.saveAsButton = Button(self, text="zapisz jako...",
+                                   command=self.fileSave) #klawisz zapisywania
         self.saveAsButton.grid(row=7, column=0, sticky=W)
-        self.openButton = Button(self, text="otwórz...", command=self.fileOpen) #klawisz otwierania
+        #klawisz otwierania
+        self.openButton = Button(self, text="otwórz...", command=self.fileOpen)
         self.openButton.grid(row=7, column=1, sticky=W)
-        self.clearText = Button(self, text="wyłącz podświetlenie", command=self.unhighlight)
+        self.clearText = Button(self, text="wyłącz podświetlenie",
+                                command=self.unhighlight)
         self.clearText.grid(row=7, column=2, sticky=W)
         self.helpButton = Button(self, text="pomoc", command=self.showHelp)
         self.helpButton.grid(row=7, column=5, sticky=E, padx=12)
     def drawList(self):
-        '''rysuje etykiete, liste slow do wyszukania oraz klawisz wyszukania i czyszczenia listy'''
+        '''rysuje etykiete, liste slow do wyszukania oraz klawisz wyszukania
+           i czyszczenia listy'''
         self.label1 = Label(self, text="Aktualne slowa:") #etykieta z boku
         self.label1.grid(column=4, row=0, padx=2, sticky=N+W)
         self.pole = ScrolledText(self, bg="white", height=10, width=35) 
@@ -100,7 +109,8 @@ class Ramka(Frame):
         self.pole.grid(column=4, row=1, padx=2, columnspan=2)
         self.pole.config(state=DISABLED)
         #self.pole.insert(END,"sdfdfsdfsdfg dfgfdgfd fgsdg")
-        self.clear = Button(self, text="wyczyść listę słów", command=self.clearList)
+        self.clear = Button(self, text="wyczyść listę słów",
+                            command=self.clearList)
         self.clear.grid(column=5, row=2, sticky=W)
         self.clear.bind('<Return>', self.clearList)
         self.search = Button(self, text="wyszukaj", command=self.search)
@@ -132,7 +142,8 @@ class Ramka(Frame):
             if (signsAfter-1)%maxLen == 0:
                 self.pole.insert("end", wartosc+",")
             else:
-                if linesAfter > linesBefore and len(improved) <= maxLen and signsAfter%maxLen > 0:
+                if (linesAfter > linesBefore and len(improved) <= maxLen and
+                        signsAfter%maxLen > 0):
                     for i in range(maxLen - lenNow%maxLen):
                         self.pole.insert("end", " ")
                 self.pole.insert("end", improved)
@@ -151,7 +162,8 @@ class Ramka(Frame):
             self.buildAho = True
     def question(self):
         '''metoda rysujaca okienko "czy na pewno chcesz zakonczyc"'''
-        wyn = MesBox.askokcancel("Koniec","Czy na pewno chcesz wyjść z aplikacji?")
+        wyn = MesBox.askokcancel("Koniec",
+                                 "Czy na pewno chcesz wyjść z aplikacji?")
         if wyn: quit()
         print wyn
     def unhighlight(self):
@@ -184,7 +196,8 @@ class Ramka(Frame):
         '''metoda otwierajaca plik'''
         opened = False
         read = False
-        rozszerzenia = [('tekstowe', '*.txt'), ('tekstowe','*.dat'), ('wszystkie', '*')]
+        rozszerzenia = [('tekstowe', '*.txt'), ('tekstowe','*.dat'), 
+                        ('wszystkie', '*')]
         try:
             okno = FileDial.Open(self, filetypes=rozszerzenia)
             nazwaPliku = okno.show()
@@ -207,7 +220,8 @@ class Ramka(Frame):
                 self.tekst.insert("end", tekst)
     def fileSave(self):
         '''metoda zapisujaca plik'''
-        rozszerzenia = [('tekstowe', '*.txt'), ('tekstowe','*.dat'), ('wszystkie', '*')]
+        rozszerzenia = [('tekstowe', '*.txt'), ('tekstowe','*.dat'),
+                        ('wszystkie', '*')]
         opened = False
         try:
             okno = FileDial.SaveAs(filetypes=rozszerzenia, title="Zapisz plik")

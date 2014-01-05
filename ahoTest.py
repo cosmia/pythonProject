@@ -31,8 +31,8 @@ class TestAho(unittest.TestCase):
         self.assertTrue(a.lookUp("tak"))
         self.assertTrue(a.lookUp("ta"))
         #testowanie wyjatkow
-        self.assertRaises(AhoCorasickException, a.addWord, 7)
-        self.assertRaises(AhoCorasickException, a.lookUp, 7)
+        self.assertRaises(AhoCorasickError, a.addWord, 7)
+        self.assertRaises(AhoCorasickError, a.lookUp, 7)
     def test_build(self):
         '''kod testujacy metode AhoCorasick.build'''
         a = AhoCorasick()
@@ -80,7 +80,8 @@ class TestAho(unittest.TestCase):
         self.assertEqual(sernik.getAccept(), zbior)
         self.assertEqual(a.words[0], "sernik")
     def test_build2(self):
-        '''kod testujacy metode AhoCorasick.build dla bardziej skomplikowanego automatu'''
+        '''kod testujacy metode AhoCorasick.build dla bardziej skomplikowanego
+           automatu'''
         a = AhoCorasick()
         a.addWord("he")
         a.addWord("she")
@@ -122,7 +123,8 @@ class TestAho(unittest.TestCase):
         self.assertEqual(a.words[2], "his")
     def test_unicode(self):
         '''kod pokazujacy, ze nalezy uwazac przy dodawaniu slow raz jako str
-           a raz jako unicode - "ą" != u"ą" etc, stad budowane drzewo moze nie byc poprawne...'''
+           a raz jako unicode - "ą" != u"ą" etc, stad budowane drzewo moze nie
+           byc poprawne...'''
         a = AhoCorasick()
         a.addWord("ą")
         a.addWord(u"ą")
@@ -141,7 +143,8 @@ class TestAho(unittest.TestCase):
         a = AhoCorasick()
         a.makeTree(["he","she","his","hers"])
         res = a.search("ushers")
-        e = "Found \"she\" in position 3\nFound \"he\" in position 3\nFound \"hers\" in position 5"
+        e = ("Found \"she\" in position 3\nFound \"he\" in position 3\n"
+             "Found \"hers\" in position 5")
         self.assertEqual(res,e)
         res = a.search("")
         self.assertEqual(res, "Nothing found")
@@ -154,7 +157,7 @@ class TestAho(unittest.TestCase):
         self.assertEqual(res,set())
         res = a.search("",True)
         self.assertEqual(res,set())
-        self.assertRaises(AhoCorasickException, a.search, 7)
+        self.assertRaises(AhoCorasickError, a.search, 7)
     def tearDown(self):
         pass
 
