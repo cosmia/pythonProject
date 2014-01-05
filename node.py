@@ -74,7 +74,7 @@ class Node:
                            " or long or a set of those")
                     raise NodeError(mes)
             #print number
-            self.accept + number
+            self.accept += number
             return
         if not isinstance(number, (long, int)):
             raise NodeError(("argument should be an integer or long"+

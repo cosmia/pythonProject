@@ -54,7 +54,7 @@ class MyList:
             self.last.setNext(tmp)
             self.last = tmp
         self.length += 1
-    def __add__(self, other):
+    def __iadd__(self, other):
         '''dodaje do siebie dwa obiekty MyList
            zmienia pierwszy obiekt, zwraca wskaznik na pierwszy obiekt'''
         if other is None or other.first is None:

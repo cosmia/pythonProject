@@ -79,9 +79,10 @@ class TestMyList(unittest.TestCase):
         l3.add(2)
         l3.add(5)
         l3.add(4)
-        self.assertEqual(l1+l2, l3)
+        l1 += l2
+        self.assertEqual(l1, l3)
         l4 = MyList()
-        l4+l3
+        l4 += l3
         self.assertEqual(l4, l3)
     def tearDown(self):
         pass
