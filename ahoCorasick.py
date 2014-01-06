@@ -30,6 +30,8 @@ class AhoCorasick:
             raise AhoCorasickError("automaton has been built already")
         if not isinstance(word, (str, unicode)):
             raise AhoCorasickError("argument is not a string")
+        #zamiana na unicode!!!
+        if isinstance(word, str): word = word.decode("utf-8")
         dl = len(word)
         if dl == 0: return #nie dodajemy pustego slowa
         wezel = self.n
@@ -61,9 +63,10 @@ class AhoCorasick:
         '''sprawdza, czy dane slowo wystepuje w drzewie
            zwraca True, jesli tak; False wpp
            rzuca AhoCorasickError, jesli word nie jest strigiem'''
-        if not isinstance(word, str):
+        if not isinstance(word, (str,unicode)):
             raise AhoCorasickError("argument is not a string")
         if word == "": return False
+        if isinstance(word, str): word = word.decode("utf-8")
         i = 0
         dl = len(word)
         wezel = self.n
