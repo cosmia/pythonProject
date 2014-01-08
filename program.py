@@ -10,9 +10,9 @@ import tkFileDialog as FileDial
 from ahoCorasick import *
 
 class Pomoc(Frame):
-    '''okno z pomoca'''
+    '''Okno z pomoca.'''
     def __init__(self, parent):
-        '''tworzy okno pomocy'''
+        '''Tworzy okno pomocy.'''
         Frame.__init__(self, parent)
         self.parent = parent
         self.parent.title("Pomoc")
@@ -27,7 +27,7 @@ class Pomoc(Frame):
         self.tekst.grid(row=1, column=0, sticky=E+W+N+S)
         self.wczytajPomoc()
     def wczytajPomoc(self):
-        '''wczytuje tresc pomocy z pliku'''
+        '''Wczytuje tresc pomocy z pliku.'''
         read = False
         opened = False
         try:
@@ -49,7 +49,7 @@ class Pomoc(Frame):
 
 class Ramka(Frame):
     def __init__(self, parent):
-        '''tworzy obiekt Example dziedziczacy po Frame, rodzicem ma byc parent'''
+        '''Tworzy obiekt Example dziedziczacy po Frame, rodzicem ma byc parent.'''
         self.listaSlow = [] #lista slow do wyszukania
         self.buildAho = False #na poczatku nie musimy budowac automatu
         self.Aho = AhoCorasick()
@@ -70,15 +70,15 @@ class Ramka(Frame):
         self.parent.protocol("WM_DELETE_WINDOW", self.question)
         self.initUI()
     def initUI(self):
-        '''zajmuje sie rozkladem poszczegolnych elementow'''
+        '''Zajmuje sie wywolaniem rysowania poszczegolnych elementow.'''
         self.columnconfigure(3, weight=1)
         self.rowconfigure(6, weight=1)
         self.drawMain()
         self.drawList()
         self.drawInput()
     def drawMain(self):
-        '''rysuje glowne pole tekstowe, etykiete tego pola, klawisze zapisz i
-           otworz'''
+        '''Rysuje glowne pole tekstowe, etykiete tego pola, klawisze "zapisz" i
+           "otworz".'''
         #pierwsza etykieta
         self.label0 = Label(self, text="Tekst do przeszukania:")
         self.label0.grid(row=0,column=0, padx=4, columnspan=2, sticky=W)
@@ -100,8 +100,8 @@ class Ramka(Frame):
         self.helpButton = Button(self, text="pomoc", command=self.showHelp)
         self.helpButton.grid(row=7, column=5, sticky=E, padx=12)
     def drawList(self):
-        '''rysuje etykiete, liste slow do wyszukania oraz klawisz wyszukania
-           i czyszczenia listy'''
+        '''Rysuje etykiete, liste slow do wyszukania oraz klawisz wyszukania
+           i czyszczenia listy.'''
         self.label1 = Label(self, text="Aktualne slowa:") #etykieta z boku
         self.label1.grid(column=4, row=0, padx=2, sticky=N+W)
         self.pole = ScrolledText(self, bg="white", height=10, width=35) 
@@ -116,7 +116,7 @@ class Ramka(Frame):
         self.search = Button(self, text="wyszukaj", command=self.search)
         self.search.grid(column=4, row=2, sticky=W)
     def drawInput(self):
-        '''rysuje etykiete, pole wprowadzania i klawisz dodawania slowa'''
+        '''Rysuje etykiete, pole wprowadzania i klawisz dodawania slowa.'''
         self.label2 = Label(self, text="Słowo:")
         self.label2.grid(column=4, row=3, pady=5, padx=2, sticky=W)
         self.wejscie = Entry(self, width=32)
@@ -126,7 +126,7 @@ class Ramka(Frame):
         self.add.grid(column=4, row=5, padx=2, sticky=W)
         self.add.bind('<Return>', self.addWord)
     def addWord(self, event=None):
-        '''metoda wywolywana po kliknieciu klawisza <dodaj>'''
+        '''Metoda wywolywana po kliknieciu klawisza <dodaj>.'''
         wartosc = self.wejscie.get()
         #print type(wartosc)
         if wartosc != "" and wartosc not in self.listaSlow:
@@ -152,7 +152,7 @@ class Ramka(Frame):
             self.listaSlow.append(wartosc)
         self.wejscie.delete(0, END)
     def clearList(self, event=None):
-        '''metoda czyszczaca liste slow'''
+        '''Metoda czyszczaca liste slow.'''
         if self.listaSlow != []:
             self.pole.config(state=NORMAL)
             self.pole.delete("1.0", "end")
@@ -161,18 +161,18 @@ class Ramka(Frame):
             self.Aho = AhoCorasick()
             self.buildAho = True
     def question(self):
-        '''metoda rysujaca okienko "czy na pewno chcesz zakonczyc"'''
+        '''Metoda rysujaca okienko "czy na pewno chcesz zakonczyc".'''
         wyn = MesBox.askokcancel("Koniec",
                                  "Czy na pewno chcesz wyjść z aplikacji?")
         if wyn: quit()
         print wyn
     def unhighlight(self):
-        '''metoda wylaczajaca aktualne podswietlenie wyszukanych wzorcow'''
+        '''Metoda wylaczajaca aktualne podswietlenie wyszukanych wzorcow.'''
         if self.highlighted:
             self.tekst.tag_remove("highlight", "1.0", "end")
             self.highlight = False
     def search(self):
-        '''metoda wyszukujaca wzorce'''
+        '''Metoda wyszukujaca wzorce.'''
         self.unhighlight()
         if self.buildAho:
             self.Aho.clear()
@@ -193,7 +193,7 @@ class Ramka(Frame):
                 last = "1.0+"+str(end)+"c"
                 self.tekst.tag_add("highlight",first, last)
     def fileOpen(self):
-        '''metoda otwierajaca plik'''
+        '''Metoda otwierajaca plik.'''
         opened = False
         read = False
         rozszerzenia = [('tekstowe', '*.txt'), ('tekstowe','*.dat'), 
@@ -219,7 +219,7 @@ class Ramka(Frame):
                 self.tekst.delete("1.0","end")
                 self.tekst.insert("end", tekst)
     def fileSave(self):
-        '''metoda zapisujaca plik'''
+        '''Metoda zapisujaca plik.'''
         rozszerzenia = [('tekstowe', '*.txt'), ('tekstowe','*.dat'),
                         ('wszystkie', '*')]
         opened = False
@@ -237,7 +237,7 @@ class Ramka(Frame):
         finally:
             if opened: plik.close()
     def showHelp(self):
-        '''metoda otwierajaca okno pomocy'''
+        '''Metoda otwierajaca okno pomocy.'''
         pomoc = Tk()
         pomoc.geometry("400x500+150+150")
         okno = Pomoc(pomoc)

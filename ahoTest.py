@@ -5,11 +5,11 @@ from ahoCorasick import *
 import unittest
 
 class TestAho(unittest.TestCase):
-    '''kod testujacy klase AhoCorasick'''
+    '''Kod testujacy klase AhoCorasick.'''
     def setUp(self):
         pass
     def test_init(self):
-        '''sprawdzam dzialanie konstruktora'''
+        '''Kod testujacy dzialanie konstruktora.'''
         a = AhoCorasick()
         #porownianie korzenia z domyslnym wezlem + czy lista slow pusta
         self.assertEqual(a.n.getAccept(), MyList())
@@ -17,7 +17,7 @@ class TestAho(unittest.TestCase):
         self.assertEqual(a.n.getLabels(), [])
         self.assertEqual(a.words, [])
     def test_tree(self):
-        '''sprawdzam dodawanie i wyszukiwanie slow w drzewie'''
+        '''Kod testujacy dodawanie i wyszukiwanie slow w drzewie.'''
         a = AhoCorasick()
         self.assertFalse(a.lookUp("nie ma"))
         self.assertFalse(a.lookUp("tak"))
@@ -34,7 +34,7 @@ class TestAho(unittest.TestCase):
         self.assertRaises(AhoCorasickError, a.addWord, 7)
         self.assertRaises(AhoCorasickError, a.lookUp, 7)
     def test_build(self):
-        '''kod testujacy metode AhoCorasick.build'''
+        '''Kod testujacy metode AhoCorasick.build.'''
         a = AhoCorasick()
         a.addWord("sernik")
         a.addWord("laser")
@@ -80,8 +80,8 @@ class TestAho(unittest.TestCase):
         self.assertEqual(sernik.getAccept(), zbior)
         self.assertEqual(a.words[0], "sernik")
     def test_build2(self):
-        '''kod testujacy metode AhoCorasick.build dla bardziej skomplikowanego
-           automatu'''
+        '''Kod testujacy metode AhoCorasick.build dla bardziej skomplikowanego
+           automatu.'''
         a = AhoCorasick()
         a.addWord("he")
         a.addWord("she")
@@ -122,8 +122,8 @@ class TestAho(unittest.TestCase):
         self.assertEqual(set(his.getAccept()), set([2]))
         self.assertEqual(a.words[2], "his")
     def test_unicode(self):
-        '''kod pokazujacy, ze dodawanie slow w postaci str jak i unicode
-           dziala poprawnie'''
+        '''Kod pokazujacy, ze dodawanie slow w postaci str jak i unicode
+           dziala poprawnie.'''
         a = AhoCorasick()
         a.addWord("ąćęłńóśźż")
         a.addWord(u"ąćęłńóśźż")
@@ -131,7 +131,7 @@ class TestAho(unittest.TestCase):
         self.assertTrue(a.lookUp(u"ąćęłńóśźż"))
         self.assertEqual(len(a.words),1)
     def test_clear(self):
-        '''kod testujacy czyszczenie automatu'''
+        '''Kod testujacy czyszczenie automatu.'''
         a = AhoCorasick()
         a.makeTree(["laser","sernik"])
         a.clear()
@@ -140,7 +140,7 @@ class TestAho(unittest.TestCase):
         self.assertEqual(a.n.getFail(), None)
         self.assertEqual(a.n.getLabels(), [])
     def test_search(self):
-        '''test sprawdzajacy wyszukiwanie wzorcow w tekscie'''
+        '''Test sprawdzajacy wyszukiwanie wzorcow w tekscie.'''
         a = AhoCorasick()
         a.makeTree(["he","she","his","hers"])
         res = a.search("ushers")

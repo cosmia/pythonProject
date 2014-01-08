@@ -6,18 +6,18 @@ from myList import *
 import unittest
 
 class TestMyList(unittest.TestCase):
-    '''kod testujacy klase MyList'''
+    '''Kod testujacy klase MyList.'''
     def setUp(self):
         pass
     def test_init(self):
-        '''sprawdzam dzialanie konstruktora'''
+        '''Kod sprawdzajacy dzialanie konstruktora.'''
         l = MyList()
         self.assertEqual(l.first, None)
         self.assertEqual(l.last, None)
         self.assertEqual(l.current, None)
         self.assertEqual(len(l), 0)
     def test_Element(self):
-        '''kod testujacy tworzenie Elementu'''
+        '''Kod testujacy tworzenie Elementu.'''
         n = Element()
         n2 = Element(3)
         n3 = Element(4, n2)
@@ -30,7 +30,7 @@ class TestMyList(unittest.TestCase):
         n.setNext(n3)
         self.assertEqual(n.getNext(), n3)
     def test_add(self):
-        '''kod testujacy dodawanie elementu do listy'''
+        '''Kod testujacy dodawanie elementu do listy.'''
         l = MyList()
         l.add(4)
         self.assertEqual(l.first.getData(), 4)
@@ -40,7 +40,7 @@ class TestMyList(unittest.TestCase):
         l.add(7)
         self.assertEqual(l.last.getData(), 7)
     def test_contains(self):
-        '''kod testujacy sprawdzanie, czy element nalezy do listy'''
+        '''Kod testujacy sprawdzanie, czy element nalezy do listy.'''
         l = MyList()
         self.assertFalse(4 in l)
         self.assertFalse(8 in l)
@@ -54,7 +54,7 @@ class TestMyList(unittest.TestCase):
         self.assertTrue(7 in l)
         self.assertFalse(13 in l)
     def test_equal(self):
-        '''kod testujacy porownywanie list'''
+        '''Kod testujacy porownywanie list.'''
         l1 = MyList()
         l2 = MyList()
         self.assertEqual(l1, l2)
@@ -69,7 +69,7 @@ class TestMyList(unittest.TestCase):
         l2.add(7)
         self.assertNotEqual(l1, l2)
     def test_join(self):
-        '''kod testujacy laczenie list'''
+        '''Kod testujacy laczenie list.'''
         l1 = MyList()
         l2 = MyList()
         l3 = MyList()

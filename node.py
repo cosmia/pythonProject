@@ -4,52 +4,52 @@
 from myList import *
 
 class NodeError(Exception):
-    '''wyjatek dla klasy Node'''
+    '''Wyjatek dla klasy Node.'''
     def __init__(self, value):
-        '''konstruktor, argumentem tresc przy rzucaniu wyjatku'''
+        '''Konstruktor, argumentem tresc przy rzucaniu wyjatku.'''
         self.napis = value
     def __str__(self):
-        '''podaje powod wyjatku'''
+        '''Podaje powod wyjatku.'''
         return repr(self.napis)
     __repr__ = __str__
 
 class Node:
-    '''klasa opisujaca wezel/stan w automacie/drzewie Trie'''
+    '''Klasa opisujaca wezel/stan w automacie/drzewie Trie.'''
     def __init__(self):
-        '''konstruktor bezargumentowy
+        '''Konstruktor bezargumentowy
            accept = MyList() - pusta lista,
            fail = None
-           edges = {}'''
+           edges = {}.'''
         self.accept = MyList()
         self.edges = {}
         self.fail = None
     def labelCorrect(self, label):
-        '''sprawdza, czy label jest poprawna etykieta krawedzi
-           jesli nie, rzuca NodeError'''
+        '''Sprawdza, czy label jest poprawna etykieta krawedzi
+           jesli nie, rzuca NodeError.'''
         if not isinstance(label, (str, unicode)):
             raise NodeError("label must be a character")
         if len(label) != 1:
             raise NodeError("label must be exactly one character long")
     def nodeCorrect(self, node, n=1):
-        '''sprawdza, czy node jest obiektem klasy Node
+        '''Sprawdza, czy node jest obiektem klasy Node
            jesli nie, to rzuca NodeError
            n to numer argumentu, ktorym jest node w jakiejs funkcji
-             sluzy uszczegolowieniu, ktory argument jest bledny'''
+             sluzy uszczegolowieniu, ktory argument jest bledny.'''
         if not isinstance(node, Node):
             lan = "the "
             if n != 1: lan += "second "
             lan += "argument must be a node"
             raise NodeError(lan)
     def getAccept(self):
-        '''zwraca liste indeksow slow, ktore akceptuje ten wezel,
-           lista jest pusta, jesli ten wezel niczego nie akceptuje'''
+        '''Zwraca liste indeksow slow, ktore akceptuje ten wezel,
+           lista jest pusta, jesli ten wezel niczego nie akceptuje.'''
         return self.accept
     def getLabels(self):
-        '''zwraca liste etykiet dla krawedzi wychodzacych z tego wezla'''
+        '''Zwraca liste etykiet dla krawedzi wychodzacych z tego wezla.'''
         return self.edges.keys()
     def getAim(self, label):
-        '''zwraca wezel, do ktorego prowadzi krawedz z etykieta label
-           jesli brak takiej krawedzi, zwraca None'''
+        '''Zwraca wezel, do ktorego prowadzi krawedz z etykieta label
+           jesli brak takiej krawedzi, zwraca None.'''
         self.labelCorrect(label)
         if label not in self.edges:
             if self.fail is None:
@@ -59,14 +59,14 @@ class Node:
         else:
             return self.edges[label]
     def getFail(self):
-        '''zwraca wezel odpowiadajacy najdluzszemu wlasciwemu sufiksowi
-           slowa, ktore do ktorego probowalismy znalezc dopasowanie'''
+        '''Zwraca wezel odpowiadajacy najdluzszemu wlasciwemu sufiksowi
+           slowa, ktore do ktorego probowalismy znalezc dopasowanie.'''
         return self.fail
     def setAccept(self, number):
-        '''ustalamy, ze ten wezel akceptuje slowo o indeksie number lub slowa o
+        '''Ustala, ze ten wezel akceptuje slowo o indeksie number lub slowa o
            indeksach z MyList number
            rzuca NodeError, jesli number nie jest calkowita liczba
-           nieujemna albo obiektem MyList calkowitych liczb nieujemnych'''
+           nieujemna albo obiektem MyList calkowitych liczb nieujemnych.'''
         if isinstance(number, MyList):
             for i in number:
                 if not isinstance(i, (long, int)) or i < 0:
@@ -83,16 +83,16 @@ class Node:
             raise NodeError("argument must be non-negative")
         self.accept.add(number)
     def setAim(self, label, node):
-        '''ustalamy, ze z tego wezla bedzie wychodzic krawedz
+        '''Ustala, ze z tego wezla bedzie wychodzic krawedz
            etykietowana label i bedzie ona prowadzic do node
-           rzuca NodeError, jesli label niepoprawna lub node nie jest wezlem
+           rzuca NodeError, jesli label niepoprawna lub node nie jest wezlem.
         '''
         self.labelCorrect(label)
         self.nodeCorrect(node,2)
         self.edges[label] = node
     def setFail(self, node):
-        '''ustalamy, ze najdluzszy sufiks slowa, do ktorego probowalismy
+        '''Ustala, ze najdluzszy sufiks slowa, do ktorego probowalismy
           dopsowac w tym wezle odpowiada wezlowi node
-          rzuca wyjatkiem, jesli node nie jest wezlem'''
+          rzuca wyjatkiem, jesli node nie jest wezlem.'''
         self.nodeCorrect(node)
         self.fail = node

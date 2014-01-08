@@ -6,17 +6,17 @@ from node import *
 import unittest
 
 class TestNode(unittest.TestCase):
-    '''kod testujacy klase Node'''
+    '''Kod testujacy klase Node.'''
     def setUp(self):
         pass
     def test_init(self):
-        '''sprawdzam dzialanie konstruktora'''
+        '''Kod sprawdzajacy dzialanie konstruktora.'''
         n = Node()
         self.assertEqual(n.accept, MyList())
         self.assertEqual(n.fail, None)
         self.assertEqual(n.edges, {})
     def test_accept(self):
-        '''kod testujacy metody setAccept i getAccept'''
+        '''Kod testujacy metody setAccept i getAccept.'''
         n = Node()
         n.setAccept(4)
         n.setAccept(8)
@@ -44,7 +44,7 @@ class TestNode(unittest.TestCase):
         mySet.add(-8)
         self.assertRaises(NodeError, n.setAccept, mySet)
     def test_aim(self):
-        '''kod testujacy dzialanie metod getAim i setAim'''
+        '''Kod testujacy dzialanie metod getAim i setAim.'''
         n = Node()
         self.assertRaises(NodeError, n.getAim, 7)
         self.assertRaises(NodeError, n.getAim, "")
@@ -67,7 +67,7 @@ class TestNode(unittest.TestCase):
         self.assertRaises(NodeError, n.setAim, "df", n2)
         self.assertRaises(NodeError, n.setAim, "a", "gfg")
     def test_fail(self):
-        '''kod testujacy dzialanie metod getFail i setFail'''
+        '''Kod testujacy dzialanie metod getFail i setFail.'''
         n1 = Node()
         n2 = Node()
         self.assertEqual(n1.getFail(), None)

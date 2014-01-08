@@ -5,27 +5,27 @@ from node import *
 from Queue import *
 
 class AhoCorasickError(Exception):
-    '''wyjatek dla klasy Node'''
+    '''Wyjatek dla klasy Node.'''
     def __init__(self, value):
-        '''konstruktor, argumentem tresc przy rzucaniu wyjatku'''
+        '''Konstruktor, argumentem tresc przy rzucaniu wyjatku.'''
         self.napis = value
     def __str__(self):
-        '''podaj powod wyjatku'''
+        '''Podaje powod wyjatku.'''
         return repr(self.napis)
 
 class AhoCorasick:
-    '''klasa opisujaca drzewo Trie / automat, sluzacy wyszukiwaniu wzorcow'''
+    '''Klasa opisujaca drzewo Trie / automat, sluzacy wyszukiwaniu wzorcow.'''
     def __init__(self):
-        '''konstruktor bezargumentowy
+        '''Konstruktor bezargumentowy
            n - korzen drzewa, pusty
-           words - pusta liczba slow zakodowanych w drzewie'''
+           words - pusta liczba slow zakodowanych w drzewie.'''
         self.n = Node()
         self.words = []
         self.built = False
     def addWord(self, word):
-        '''dodaje slowo word do automatu/drzewa
+        '''Dodaje slowo word do automatu/drzewa
            rzuca AhoCorasickError, jesli word nie jest stringiem
-             lub zbudowano juz automat'''
+             lub zbudowano juz automat.'''
         if self.built:
             raise AhoCorasickError("automaton has been built already")
         if not isinstance(word, (str, unicode)):
@@ -60,9 +60,9 @@ class AhoCorasick:
             wezel.setAccept(ktore)
             self.words.append(word)
     def lookUp(self, word):
-        '''sprawdza, czy dane slowo wystepuje w drzewie
+        '''Sprawdza, czy dane slowo wystepuje w drzewie
            zwraca True, jesli tak; False wpp
-           rzuca AhoCorasickError, jesli word nie jest strigiem'''
+           rzuca AhoCorasickError, jesli word nie jest strigiem.'''
         if not isinstance(word, (str,unicode)):
             raise AhoCorasickError("argument is not a string")
         if word == "": return False
@@ -81,8 +81,8 @@ class AhoCorasick:
             return True
         return False
     def build(self):
-        '''konstruuje automat skonczony na podstawie drzewa, ktore
-           powstaje podczas dodawania slow metoda addWord'''
+        '''Konstruuje automat skonczony na podstawie drzewa, ktore
+           powstaje podczas dodawania slow metoda addWord.'''
         q = Queue()
         for i in self.n.getLabels():
             s = self.n.getAim(i)
@@ -101,10 +101,10 @@ class AhoCorasick:
                 u.setAccept(u.getFail().getAccept())
         self.built = True
     def makeTree(self, wordList):
-        '''konstruuje drzewo i automat na podstawie listy slow wordList
+        '''Konstruuje drzewo i automat na podstawie listy slow wordList
            takze dodaje do istniejacego automatu wzorce z wordList
            rzuca AhoCorasickError, jesli wordList nie jest lista stringow
-             lub zbudowano juz automat'''
+             lub zbudowano juz automat.'''
         if self.built:
             raise AhoCorasickError("automaton has been built already")
         if not isinstance(wordList, list):
@@ -121,13 +121,13 @@ class AhoCorasick:
         self.n = Node()
         self.built = False
     def search(self, tekst, returnList=False):
-        '''wyszukuje wzorce w zmiennej tekst, zwraca string z wiadomoscia o
+        '''Wyszukuje wzorce w zmiennej tekst, zwraca string z wiadomoscia o
              wynikach
            domyslny argument returnList mowi o formacie zwracanej wartosci
            jesli returnList jest False, to zwracamy string z informacjami
            jesli returnList jest True, to zwracamy liste krotek o dlugosci dwa,
               krotka zawiera pozycje, na ktorej znalazla slowo, oraz indeks slowa
-           jesli tekst nie jest zmienna string, to rzuca AhoCorasickError'''
+           jesli tekst nie jest zmienna string, to rzuca AhoCorasickError.'''
         if not isinstance(tekst, (str, unicode)):
             raise AhoCorasickError("argument is not a string")
         node = self.n
